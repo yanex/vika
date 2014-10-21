@@ -1,0 +1,9 @@
+/.idea/
+/.preprocessed/
+/.locale_interfaces/
+/bin/
+/target/
+/deliverables/
+*.iml
+.DS_Store
+*.class
