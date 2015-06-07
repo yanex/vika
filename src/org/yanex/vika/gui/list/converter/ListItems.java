@@ -8,7 +8,7 @@ import org.yanex.vika.api.item.collections.Users;
 import org.yanex.vika.gui.list.item.DialogItem;
 import org.yanex.vika.gui.list.item.SongItem;
 import org.yanex.vika.util.fun.Function1;
-import org.yanex.vika.util.fun.Predicate;
+import org.yanex.vika.util.fun.Predicates;
 import org.yanex.vika.util.fun.RichVector;
 
 import java.util.Hashtable;
@@ -58,7 +58,7 @@ public class ListItems {
           return new DialogItem(message);
         } else return null;
       }
-    }).filter(new Predicate.NotNull());
+    }).filter(Predicates.notNull);
   }
 
 }

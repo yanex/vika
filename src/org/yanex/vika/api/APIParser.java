@@ -11,7 +11,7 @@ import org.yanex.vika.api.item.collections.Messages;
 import org.yanex.vika.api.item.collections.Users;
 import org.yanex.vika.api.util.JSONUtils;
 import org.yanex.vika.util.fun.Function1;
-import org.yanex.vika.util.fun.Predicate;
+import org.yanex.vika.util.fun.Predicates;
 import org.yanex.vika.util.fun.RichVector;
 
 import java.util.Vector;
@@ -43,7 +43,7 @@ public class APIParser {
               return User.opt((JSONObject) it);
             }
           })
-          .filter(new Predicate.NotNull());
+          .filter(Predicates.notNull);
 
       return new Users(users);
     } catch (JSONException e) {

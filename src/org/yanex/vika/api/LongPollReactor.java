@@ -48,7 +48,7 @@ public class LongPollReactor implements LongPollListener {
           return null;
         }
       }
-    }).filter(new Predicate.NotNull()).foldr(Boolean.FALSE, new Function2() {
+    }).filter(Predicates.notNull).foldr(Boolean.FALSE, new Function2() {
 
       public Object apply(Object o1, Object o2) {
         LongPollProcessor p = (LongPollProcessor) o2;

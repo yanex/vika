@@ -14,6 +14,7 @@ import org.yanex.vika.util.StringUtils;
 import org.yanex.vika.util.fun.Function1;
 import org.yanex.vika.util.fun.Pair;
 import org.yanex.vika.util.fun.Predicate;
+import org.yanex.vika.util.fun.Predicates;
 
 import java.util.Vector;
 
@@ -132,7 +133,7 @@ public class MessagesAPI extends APIParser {
 
             return message.build();
           }
-        }).filter(new Predicate.NotNull()));
+        }).filter(Predicates.notNull));
       } else {
         throw new APIException(jso);
       }
@@ -187,8 +188,7 @@ public class MessagesAPI extends APIParser {
 
             if (message.getChatActive() != null) {
               Vector chatActiveUsers = new Vector();
-              int addedUsers = 0;
-              for (int i = 0; addedUsers < 4 && i < message.getChatActive().length; ++i) {
+              for (int i = 0; i < message.getChatActive().length; ++i) {
                 User chatUser = (User) users.get(message.getChatActive()[i]);
                 if (chatUser != null) {
                   chatActiveUsers.addElement(chatUser);
@@ -199,7 +199,7 @@ public class MessagesAPI extends APIParser {
 
             return message.build();
           }
-        }).filter(new Predicate.NotNull()));
+        }).filter(Predicates.notNull));
       } else {
         throw new APIException(jso);
       }
