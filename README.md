@@ -4,24 +4,23 @@
 	<img src="res/img/icon.png">
 </div>
 
-Vk social network messenger for Blackberry OS 6/7.
+[Vk](http://vk.com) messenger for Blackberry OS 6/7.
 
-For now, Vika features includes:
+For now, Vika allows to:
 
-* Sending and receiving messages from Vk friends and group chats;
-* Sending and displaying attachments and forwarded messages;
-* New user chats creation;
-* Notifications;
-* Ability to connect via BIS/WiFi/Cellular.
+* Send and receive text messages and messages with attachments;
+* Create new conversations;
+* Display background notifications using long poll;
+* Establish connection via BIS/WiFi/Cellular.
 
 ### TODO
 
 * Refactoring;
-* Tests;
+* Unit tests;
 * New storage engine;
 * Music player (partially done now).
 
-Vika is still in beta so some functions could behave strange.
+Vika is still in alpha so some functions could behave strange.
 
 ### Building
 
@@ -29,4 +28,4 @@ Use Eclipse with Blackberry plugin to build the project. Do not forget to write 
 
 ### Contributing
 
-Vika is licenced under GPLv3. Feel free to send pull requests!
+Vika is licenced under [GPLv3](http://www.gnu.org/licenses/gpl-3.0.html). Feel free to send pull requests!
