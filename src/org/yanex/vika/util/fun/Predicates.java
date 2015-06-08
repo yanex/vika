@@ -42,4 +42,12 @@ public final class Predicates {
       return it instanceof String && ((String) it).startsWith(prefix);
     }
   }
+
+  public static Predicate startsWith(String prefix) {
+    return new StartsWith(prefix);
+  }
+
+  public static Predicate is(Class clazz) {
+    return new InstanceOf(clazz);
+  }
 }

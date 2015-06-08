@@ -91,7 +91,7 @@ public abstract class APIHelper {
         UiApplication.getUiApplication().popScreen();
       }
 
-      UiApplication.getUiApplication().pushScreen(new LoginScreen());
+      UiApplication.getUiApplication().pushScreen(Vika.createLoginScreen());
     }
   }
 

@@ -84,9 +84,9 @@ public class LoginScreen extends VkMainScreen implements FieldChangeListener {
 
         OptionsStorage.instance.set("account.access_token", t.getToken());
         OptionsStorage.instance.set("account.user_id", Long.toString(t.getUserId()));
-        OptionsStorage.instance.set("account.secret", t.getSecret());
+        OptionsStorage.instance.set("account.secret", "");
 
-        Vika.createAPI(t.getToken(), t.getUserId(), t.getSecret());
+        Vika.createAPI(t.getToken(), t.getUserId());
 
         Vika.api().longpoll.start();
         new RootScreen().show();

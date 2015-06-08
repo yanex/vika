@@ -814,7 +814,7 @@ public class RootScreen extends VkMainScreen implements ToolbarListener {
       UiApplication.getUiApplication().popScreen();
     }
 
-    UiApplication.getUiApplication().pushScreen(new LoginScreen());
+    UiApplication.getUiApplication().pushScreen(Vika.createLoginScreen());
   }
 
   private class ExitMenuItem extends MenuItem {

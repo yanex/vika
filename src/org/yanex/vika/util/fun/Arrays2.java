@@ -12,6 +12,36 @@ final class Arrays2 {
     }
   }
 
+  static boolean any(Object[] array, Predicate conditinon) {
+    if (array == null) {
+      return false;
+    }
+
+    for (int i = 0; i < array.length; ++i) {
+      boolean result = conditinon.pred(array[i]);
+      if (result) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  static Object firstOrNull(Object[] array, Predicate conditinon) {
+    if (array == null) {
+      return null;
+    }
+
+    for (int i = 0; i < array.length; ++i) {
+      boolean result = conditinon.pred(array[i]);
+      if (result) {
+        return array[i];
+      }
+    }
+
+    return null;
+  }
+
   static String toString(Object[] array) {
     StringBuffer stringBuffer = new StringBuffer("[");
     for (int i = 0; i < array.length; ++i) {

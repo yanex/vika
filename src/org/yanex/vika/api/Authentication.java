@@ -14,19 +14,22 @@ public class Authentication {
     private long userId;
     private String secret;
 
-    public Token(String token, long userId, String secret) {
-      super();
+    public Token(String token, long userId) {
       this.token = token;
       this.userId = userId;
-      this.secret = secret;
     }
 
-    public String getSecret() {
-      return secret;
+    public Token(String token, long userId, String secret) {
+      this(token, userId);
+      this.secret = secret;
     }
 
     public String getToken() {
       return token;
+    }
+
+    public String getSecret() {
+      return secret;
     }
 
     public long getUserId() {
@@ -57,8 +60,7 @@ public class Authentication {
       if (jso.has("access_token") && jso.has("user_id")) {
         String token = jso.getString("access_token");
         long userId = jso.getLong("user_id");
-        String secret = jso.getString("secret");
-        return new Token(token, userId, secret);
+        return new Token(token, userId);
       } else {
         throw new APIException(jso);
       }

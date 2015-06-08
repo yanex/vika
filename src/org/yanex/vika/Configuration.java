@@ -11,7 +11,10 @@ public class Configuration {
   public static final String SCOPE =
     "notify,photos,docs,status,friends,messages,audio,video,offline,notifications,nohttps";
 
+  public static final String REDIRECT_URL = "";
+
   //VK configuration
+  public static final boolean USE_DIRECT_AUTH = false;
   public static final String CLIENT_ID = "";
   public static final String CLIENT_SECRET = "";
   public static final String API_VERSION = "5.23";

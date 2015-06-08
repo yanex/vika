@@ -1,18 +1,20 @@
 package org.yanex.vika.api;
 
+import net.rim.device.api.crypto.MD5Digest;
 import org.yanex.vika.Configuration;
 import org.yanex.vika.Vika;
 import org.yanex.vika.api.Authentication.Token;
 import org.yanex.vika.api.http.Arguments;
-import org.yanex.vika.api.http.Arguments.ArgumentPair;
 import org.yanex.vika.api.http.HTTPMethods;
-import com.nokia.example.rlinks.util.URLEncoder;
 import org.yanex.vika.api.util.CaptchaInfo;
 import org.yanex.vika.util.network.Network;
 
 public class VkApi extends Api {
 
   static final String PROFILE_FIELDS = "photo_50,online,last_seen,sex";
+
+  private static char[] HEX_CHARS =
+      {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
   private final Token token;
 
@@ -65,43 +67,29 @@ public class VkApi extends Api {
       args.put("captcha_key", captcha.code);
     }
 
-    String postData = "";
-    String encodedData = "";
-
-    for (int i = 0; i < args.size(); ++i) {
-      ArgumentPair pair = args.byId(i);
-      if (postData.length() == 0) {
-        postData = pair.name + "=" + pair.value;
-        encodedData = pair.name + "=" + URLEncoder.urlEncode(pair.value);
-      } else {
-        postData += "&" + pair.name + "=" + pair.value;
-        encodedData += "&" + pair.name + "=" + URLEncoder.urlEncode(pair.value);
-      }
-    }
+    String encodedData = args.toEncodedParameterString();
 
     if (token != null) {
-      if (postData.length() == 0) {
-        postData = "access_token=" + token.getToken();
+      if (encodedData.length() == 0) {
         encodedData = "access_token=" + token.getToken();
       } else {
-        postData += "&" + "access_token=" + token.getToken();
         encodedData += "&" + "access_token=" + token.getToken();
       }
     }
 
     byte[] data = encodedData.getBytes();
 
-    //String protocolName==Protocol.HTTP ? "http" : "https";
-    String protocolName = "https";
-    String url = protocolName + "://api.vk.com/method/" + method;
-
-    if (generateSig && token != null) {
-      String sig = md5("/method/" + method + "?" + postData + token.getSecret());
-      url += "?sig=" + sig;
-    }
+    String url = "https://api.vk.com/method/" + method;
 
     if (Configuration.DEBUG) {
       Vika.log("API query(" + url + "): " + encodedData);
+    }
+
+    if (generateSig && token != null && token.getSecret() != null) {
+      String parameterString = args.toParameterString() + "&access_token=" + token.getToken();
+      String sigData = "/method/" + method + "?" + parameterString + token.getSecret();
+      String sig = md5(sigData);
+      url+="?sig=" + sig;
     }
 
     String ret = HTTPMethods.post(url, data);
@@ -115,5 +103,26 @@ public class VkApi extends Api {
     }
 
     return ret;
+  }
+
+  private static String byteArrayToString(byte[] bytes) {
+    StringBuffer sb = new StringBuffer(bytes.length * 2);
+
+    for (int i = 0; i < bytes.length; i++) {
+      int b = bytes[i] < 0 ? bytes[i] + 256 : bytes[i];
+      sb.append(HEX_CHARS[b >> 4]).append(HEX_CHARS[b & 0xF]);
+    }
+
+    return sb.toString();
+  }
+
+  private String md5(String str) {
+    try {
+      MD5Digest digest = new MD5Digest();
+      digest.update(str.getBytes("UTF-8"));
+      return byteArrayToString(digest.getDigest());
+    } catch (Exception e) {
+      return "";
+    }
   }
 }

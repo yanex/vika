@@ -24,6 +24,14 @@ public class Array {
     Arrays2.each(array, act);
   }
 
+  public boolean any(Predicate condition) {
+    return Arrays2.any(array, condition);
+  }
+
+  public Object firstOrNull(Predicate condition) {
+    return Arrays2.firstOrNull(array, condition);
+  }
+
   public Array clone() {
     return new Array(cloneArray());
   }

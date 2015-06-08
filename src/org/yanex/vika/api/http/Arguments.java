@@ -1,5 +1,6 @@
 package org.yanex.vika.api.http;
 
+import com.nokia.example.rlinks.util.URLEncoder;
 import org.yanex.vika.util.StringUtils;
 import org.yanex.vika.util.fun.SortingVector;
 
@@ -80,6 +81,34 @@ public class Arguments {
 
   public String toString() {
     return vector.toString();
+  }
+
+  public String toEncodedParameterString() {
+    StringBuffer buffer = new StringBuffer();
+
+    for (int i = 0; i < size(); ++i) {
+      ArgumentPair pair = byId(i);
+      if (buffer.length() > 0) {
+        buffer.append('&');
+      }
+      buffer.append(pair.name).append('=').append(URLEncoder.urlEncode(pair.value));
+    }
+
+    return buffer.toString();
+  }
+
+  public String toParameterString() {
+    StringBuffer buffer = new StringBuffer();
+
+    for (int i = 0; i < size(); ++i) {
+      ArgumentPair pair = byId(i);
+      if (buffer.length() > 0) {
+        buffer.append('&');
+      }
+      buffer.append(pair.name).append('=').append(pair.value);
+    }
+
+    return buffer.toString();
   }
 
   // key and value strings must not contain " symbol

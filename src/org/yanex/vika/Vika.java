@@ -5,8 +5,10 @@ package org.yanex.vika;
 import net.rim.device.api.applicationcontrol.ApplicationPermissions;
 import net.rim.device.api.applicationcontrol.ApplicationPermissionsManager;
 import net.rim.device.api.ui.UiApplication;
+import net.rim.device.api.util.NumberUtilities;
 import org.yanex.vika.api.Authentication.Token;
 import org.yanex.vika.api.VkApi;
+import org.yanex.vika.gui.screen.VkMainScreen;
 import org.yanex.vika.storage.*;
 import org.yanex.vika.util.bb.Indicator;
 import org.yanex.vika.util.bb.Notifications;
@@ -32,16 +34,23 @@ public class Vika extends UiApplication {
     Notifications.getInstance().init();
     OptionsStorage.instance.delete("last_active");
 
-    String access_token = OptionsStorage.instance.getString("account.access_token", null);
-    long user_id = Long.parseLong(OptionsStorage.instance.getString("account.user_id", "0"));
+    String accessToken = OptionsStorage.instance.getString("account.access_token", null);
+    String userIdString = OptionsStorage.instance.getString("account.user_id", "0");
     String secret = OptionsStorage.instance.getString("account.secret", null);
 
-    if (access_token != null && user_id > 0 && secret != null) {
-      Vika.createAPI(access_token, user_id, secret);
+    long userId;
+    try {
+      userId = Long.parseLong(userIdString);
+    } catch (NumberFormatException e) {
+      userId = 0;
+    }
+
+    if (accessToken != null && userId > 0) {
+      Vika.createAPI(accessToken, userId, secret);
       Vika.api.longpoll.start();
       pushScreen(new RootScreen());
     } else {
-      pushScreen(new LoginScreen());
+      pushScreen(createLoginScreen());
     }
   }
 
@@ -53,8 +62,21 @@ public class Vika extends UiApplication {
     return Vika.api;
   }
 
+  public static VkMainScreen createLoginScreen() {
+    if (Configuration.USE_DIRECT_AUTH) {
+      return new LoginScreen();
+    } else {
+      return new OAuthScreen();
+    }
+  }
+
   static void createAPI(String accessToken, long userId, String secret) {
     Token t = new Token(accessToken, userId, secret);
+    Vika.api = new VkApi(t);
+  }
+
+  static void createAPI(String accessToken, long userId) {
+    Token t = new Token(accessToken, userId);
     Vika.api = new VkApi(t);
   }
 
@@ -105,7 +127,7 @@ public class Vika extends UiApplication {
       UiApplication.getUiApplication().popScreen();
     }
 
-    UiApplication.getUiApplication().pushScreen(new LoginScreen());
+    UiApplication.getUiApplication().pushScreen(Vika.createLoginScreen());
   }
 
   public void deactivate() {

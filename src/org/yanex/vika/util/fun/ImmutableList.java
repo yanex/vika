@@ -49,7 +49,7 @@ public class ImmutableList implements Persistable {
   }
 
   public RichVector filter(Class clazz) {
-    return Vectors2.filter(vector, new Predicate.InstanceOf(clazz));
+    return Vectors2.filter(vector, new Predicates.InstanceOf(clazz));
   }
 
   public RichVector filter(Predicate predicate) {
