@@ -11,9 +11,8 @@ import org.yanex.vika.gui.util.R;
 public class ImageField extends Field {
 
     private AbstractBitmapField bitmap;
-    private int height;
-    private int width;
-    private boolean scale;
+    private final int height;
+    private final int width;
 
     private String text = null;
 
@@ -102,7 +101,7 @@ public class ImageField extends Field {
     }
 
     public void setBitmap(Bitmap bmp) {
-        bitmap = new AbstractBitmapField(bmp, new XYDimension(width, height), scale);
+        bitmap = new AbstractBitmapField(bmp, new XYDimension(width, height), false);
         invalidate();
     }
 

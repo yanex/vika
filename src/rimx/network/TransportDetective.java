@@ -34,7 +34,7 @@ public class TransportDetective {
         if (TLEUtilities.findType(buffer, typeByteCode)) {
           intData = TLEUtilities.readIntegerField(buffer, typeByteCode);
         }
-      } catch (Throwable e) {
+      } catch (Throwable ignored) {
 
       }
     }
@@ -121,7 +121,7 @@ public class TransportDetective {
         if (ConverterUtilities.findType(buffer, typeByteCode)) {
           intVal = ConverterUtilities.readInt(buffer);
         }
-      } catch (Throwable e) {
+      } catch (Throwable ignored) {
 
       }
     }
@@ -150,7 +150,7 @@ public class TransportDetective {
         if (TLEUtilities.findType(buffer, typeByteCode)) {
           stringData = TLEUtilities.readStringField(buffer, typeByteCode);
         }
-      } catch (Throwable e) {
+      } catch (Throwable ignored) {
 
       }
     }
@@ -178,8 +178,7 @@ public class TransportDetective {
         if (TLEUtilities.findType(buffer, typeByteCode)) {
           stringData = TLEUtilities.readStringField(buffer, typeByteCode);
         }
-      } catch (Throwable e) {
-
+      } catch (Throwable ignored) {
       }
     }
     return stringData;
@@ -191,7 +190,7 @@ public class TransportDetective {
   // Mask representing available transport coverage
   private int _availableTransportCoverage = 0;
 
-  private ServiceBook _serviceBook;
+  private final ServiceBook _serviceBook;
 
   public TransportDetective() {
     _serviceBook = ServiceBook.getSB();
@@ -338,11 +337,7 @@ public class TransportDetective {
    */
   public synchronized boolean isCoverageAvailable(int transport) {
     int available = getAvailableTransportCoverage();
-    if ((available & transport) > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return (available & transport) > 0;
   }
 
   /**
@@ -367,11 +362,7 @@ public class TransportDetective {
    */
   public synchronized boolean isTransportServiceAvailable(int transport) {
     int available = getAvailableTransportServices();
-    if ((available & transport) > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return (available & transport) > 0;
   }
 
   /**

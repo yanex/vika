@@ -6,7 +6,7 @@ public class RandomUtils {
 
     public static final RandomUtils instance = new RandomUtils();
 
-    private Random r = new Random();
+    private final Random r = new Random();
 
     public String nextIntString(int length) {
         StringBuffer b = new StringBuffer(length);

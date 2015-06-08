@@ -57,13 +57,6 @@ public class FriendsAPI extends APIParser {
         ));
     }
 
-    public Users getByPhones(CaptchaInfo captcha, String phones) throws APIException {
-        return parseUsers(api.process(captcha, "friends.getByPhones", Arguments.make()
-                        .put("phones", phones)
-                        .put("fields", VkApi.PROFILE_FIELDS)
-        ));
-    }
-
     public Users getOnline(CaptchaInfo captcha) throws APIException {
         String code = "return API.users.get({\"user_ids\":API.friends.getOnline(),\"fields\":\""
                 + VkApi.PROFILE_FIELDS + "\"});";

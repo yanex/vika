@@ -4,28 +4,28 @@ import org.yanex.vika.gui.util.GuiItem;
 
 public interface AbstractListItem extends GuiItem {
 
-    static interface ItemListener {
-        public void itemClick(int id, AbstractListItem item);
+    interface ItemListener {
+        void itemClick(int id, AbstractListItem item);
 
-        public void specialPaint(int id, AbstractListItem item);
+        void specialPaint(int id, AbstractListItem item);
     }
 
-    static interface ItemPaintListener {
-        public void onPaint();
+    interface ItemPaintListener {
+        void onPaint();
     }
 
-    public boolean filter(String filter);
+    boolean filter(String filter);
 
-    public void setId(int id);
+    void setId(int id);
 
-    public int getId();
+    int getId();
 
-    public ItemListener getItemListener();
+    ItemListener getItemListener();
 
-    public ItemPaintListener getItemPaintListener();
+    ItemPaintListener getItemPaintListener();
 
-    public void setItemListener(ItemListener itemListener);
+    void setItemListener(ItemListener itemListener);
 
-    public void setItemPaintListener(ItemPaintListener itemPaintListener);
+    void setItemPaintListener(ItemPaintListener itemPaintListener);
 
 }

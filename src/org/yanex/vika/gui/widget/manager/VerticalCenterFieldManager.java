@@ -7,10 +7,6 @@ import org.yanex.vika.gui.screen.VkMainScreen;
 
 public class VerticalCenterFieldManager extends Manager {
 
-    public VerticalCenterFieldManager() {
-        super(0);
-    }
-
     public VerticalCenterFieldManager(long style) {
         super(style);
     }

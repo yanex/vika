@@ -14,7 +14,6 @@ import org.yanex.vika.gui.util.Theme;
 import org.yanex.vika.gui.widget.VkAudioAttachmentField;
 import org.yanex.vika.gui.widget.VkDocumentAttachmentField;
 import org.yanex.vika.gui.widget.VkPhotoAttachmentField;
-import org.yanex.vika.gui.widget.VkPhotoAttachmentField.PhotoAttachmentFieldListener;
 import org.yanex.vika.gui.widget.base.AutoLoadingBitmapField;
 import org.yanex.vika.gui.widget.base.ButtonField;
 import org.yanex.vika.gui.widget.base.CustomLabelField;
@@ -24,16 +23,15 @@ import org.yanex.vika.util.HappyDate;
 
 import java.util.Vector;
 
-public class ForwardedMessageItem extends HorizontalFieldManager implements
-        PhotoAttachmentFieldListener, FieldChangeListener, GuiItem {
+public class ForwardedMessageItem extends HorizontalFieldManager implements FieldChangeListener, GuiItem {
 
-    private static Background INNER_FOCUS = new RoundedBackground(0xcbd5e3);
+    private static final Background INNER_FOCUS = new RoundedBackground(0xcbd5e3);
 
     private final Theme BLACK_THEME, GRAY_THEME, BLUE_THEME, BLUE_INNER_THEME;
 
     private int lineColor = 0x9ba4af;
 
-    private Message message;
+    private final Message message;
     private HorizontalFieldManager root;
 
     private VerticalFieldManager vfmMain;
@@ -41,8 +39,6 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
     private CustomLabelField name;
     private CustomLabelField date;
     private TextField text;
-
-    private ActiveRichTextField activeText;
 
     public ForwardedMessageItem(Message message) {
         this.message = message;
@@ -58,8 +54,7 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
 
         BLUE_INNER_THEME = new Theme();
         BLUE_INNER_THEME.setPrimaryColor(0);
-        BLUE_INNER_THEME.setBackground(null, ForwardedMessageItem.INNER_FOCUS,
-                ForwardedMessageItem.INNER_FOCUS, null);
+        BLUE_INNER_THEME.setBackground(null, ForwardedMessageItem.INNER_FOCUS, ForwardedMessageItem.INNER_FOCUS, null);
 
         init();
 
@@ -75,13 +70,8 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
         vfmMain.add(date);
 
         if (message.getBody() != null && message.getBody().length() > 0) {
-            if (testActive(message.getBody())) {
-                activeText.setText(message.getBody());
-                vfmMain.add(activeText);
-            } else {
-                text.setText(message.getBody());
-                vfmMain.add(text);
-            }
+            text.setText(message.getBody());
+            vfmMain.add(text);
         }
 
         int i;
@@ -99,7 +89,6 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
                     PhotoAttachment pa = (PhotoAttachment) a;
                     if (pa.getSrc() != null && pa.getSrc().length() > 0) {
                         VkPhotoAttachmentField item = new VkPhotoAttachmentField(pa);
-                        item.setAttachmentListener(this);
                         photoItems.addElement(item);
                     }
                 } else if (a instanceof DocumentAttachment) {
@@ -109,7 +98,6 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
                             || da.getExt().toLowerCase().equals("jpg") || da.getExt()
                             .toLowerCase().equals("gif"))) {
                         VkPhotoAttachmentField item = new VkPhotoAttachmentField(da);
-                        item.setAttachmentListener(this);
                         documentItems.addElement(item);
                     } else {
                         VkDocumentAttachmentField item = new VkDocumentAttachmentField(da);
@@ -118,7 +106,6 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
                 } else if (a instanceof VideoAttachment) {
                     VideoAttachment va = (VideoAttachment) a;
                     VkPhotoAttachmentField item = new VkPhotoAttachmentField(va);
-                    item.setAttachmentListener(this);
                     videoItems.addElement(item);
                 } else if (a instanceof AudioAttachment) {
                     AudioAttachment aa = (AudioAttachment) a;
@@ -162,7 +149,6 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
 
         if (message.getGeo() != null) {
             VkPhotoAttachmentField item = new VkPhotoAttachmentField(new GeoAttachment(message));
-            item.setAttachmentListener(this);
             vfmMain.add(item);
         }
 
@@ -236,25 +222,16 @@ public class ForwardedMessageItem extends HorizontalFieldManager implements
         date.setFont(Fonts.narrow(5));
 
         text = new TextField("", 0);
-        activeText = new ActiveRichTextField("");
-    }
-
-    public void onSizeChange(int newWidth, int newHeight) {
-        updateLayout();
     }
 
     protected void paint(Graphics g) {
         super.paint(g);
 
         int oldColor = g.getColor();
+
         g.setColor(lineColor);
-
         g.fillRect(0, 0, DP1, getContentHeight());
-
         g.setColor(oldColor);
     }
 
-    private boolean testActive(String text) {
-        return false;
-    }
 }

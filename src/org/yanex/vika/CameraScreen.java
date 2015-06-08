@@ -40,7 +40,6 @@ class CameraScreen extends VkMainScreen {
             if (listener != null) {
                 listener.onCameraError(CameraScreen.ERROR);
             }
-            return;
         }
 
         Field viewFinder = (Field) vc.initDisplayMode(GUIControl.USE_GUI_PRIMITIVE, "net.rim.device.api.ui.Field");
@@ -55,7 +54,6 @@ class CameraScreen extends VkMainScreen {
             if (listener != null) {
                 listener.onCameraError(CameraScreen.ERROR);
             }
-            return;
         }
     }
 
@@ -84,7 +82,7 @@ class CameraScreen extends VkMainScreen {
     protected boolean invokeAction(int action) {
         boolean handled = super.invokeAction(action);
 
-        if (!handled && action == ACTION_INVOKE) { // trackball click
+        if (!handled && action == ACTION_INVOKE) { // Trackball click
             shot();
             handled = true;
         }
@@ -93,8 +91,7 @@ class CameraScreen extends VkMainScreen {
 
     private void shot() {
         try {
-            String imageType = null;
-            final byte[] imageBytes = vc.getSnapshot(imageType);
+            final byte[] imageBytes = vc.getSnapshot(null);
             final String fn = "temp_camera_" + System.currentTimeMillis() + ".jpg";
             vc.setVisible(false);
             player.stop();
@@ -130,10 +127,9 @@ class CameraScreen extends VkMainScreen {
         UiApplication.getUiApplication().popScreen(this);
     }
 
-    static interface CameraListener {
-        public void onCameraError(String error);
-
-        public void onShot(String filename);
+    interface CameraListener {
+        void onCameraError(String error);
+        void onShot(String filename);
     }
 
 }

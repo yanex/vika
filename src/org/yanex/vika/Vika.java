@@ -75,7 +75,7 @@ public class Vika extends UiApplication {
     }
 
     static void createAPI(String accessToken, long userId) {
-        Token t = new Token(accessToken, userId);
+        Token t = new Token(accessToken, userId, null);
         Vika.api = new VkApi(t);
     }
 
@@ -96,7 +96,7 @@ public class Vika extends UiApplication {
         ApplicationPermissions original = apm.getApplicationPermissions();
 
         if (!permissionsPresent(original)) {
-            permissionsRequest(apm);
+            permissionsRequest();
         }
     }
 
@@ -142,7 +142,7 @@ public class Vika extends UiApplication {
         return true;
     }
 
-    private void permissionsRequest(ApplicationPermissionsManager apm) {
+    private void permissionsRequest() {
         ApplicationPermissions permRequest = new ApplicationPermissions();
         for (int i = 0; i < needed_permissions.length; i++) {
             permRequest.addPermission(needed_permissions[i]);

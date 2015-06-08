@@ -28,14 +28,11 @@ import org.yanex.vika.local.VikaResource;
 
 public class ConversationScreenGui extends ScreenGui {
 
-    public static final Bitmap addAttachmentsDefault = R.instance
-            .getBitmap("Convs/Plus.png");
+    public static final Bitmap addAttachmentsDefault = R.instance.getBitmap("Convs/Plus.png");
 
-    public static final Bitmap addAttachmentsFocus = R.instance
-            .getBitmap("Convs/PlusHover.png");
+    public static final Bitmap addAttachmentsFocus = R.instance.getBitmap("Convs/PlusHover.png");
 
-    public static final Bitmap addAttachmentsActive = R.instance
-            .getBitmap("Convs/PlusActive.png");
+    public static final Bitmap addAttachmentsActive = R.instance.getBitmap("Convs/PlusActive.png");
 
     public static final Theme ATTACH_BUTTON_THEME, TEXT_THEME, CANCEL_THEME, FORWARD_THEME,
             DELETE_THEME, ATTACHMENT_ADD_THEME;
@@ -139,7 +136,6 @@ public class ConversationScreenGui extends ScreenGui {
         list.setListener(screen);
         list.setSeparatorHeight(0);
         list.setSeparatorColor(0xFFFFFF);
-        Bitmap bg = R.instance.getBitmap("LightBg.png");
 
         Background bgb = BackgroundFactory.createSolidBackground(0xdfe4ee);
 
@@ -157,14 +153,12 @@ public class ConversationScreenGui extends ScreenGui {
         bottomTyping.setMargin(DP2, DP2, DP2, DP2);
 
         bottomText = new HorizontalFieldManager(Field.USE_ALL_WIDTH);
-        Background inputBg = new NinePatchBackground(
-                R.instance.getNinepatch("Convs/InputBg.png"));
+        Background inputBg = new NinePatchBackground(R.instance.getNinepatch("Convs/InputBg.png"));
         bottomText.setBackground(inputBg);
 
         bottomLoading = new VerticalFieldManager(Field.USE_ALL_WIDTH);
         bottomLoading.setBackground(inputBg);
-        bottomLoadingText = new VkLabelField(tr(VikaResource.Uploading_images) + "...",
-                Field.FIELD_HCENTER);
+        bottomLoadingText = new VkLabelField(tr(VikaResource.Uploading_images) + "...", Field.FIELD_HCENTER);
         bottomLoading.add(bottomLoadingText);
 
         addAttachments = new ImageSelectorField(addAttachmentsDefault,
@@ -177,8 +171,7 @@ public class ConversationScreenGui extends ScreenGui {
                 DP10, DP10, Field.FIELD_VCENTER,
                 ATTACH_BUTTON_THEME, false);
 
-        text = new EditTextField(Field.FIELD_VCENTER | TextField.JUMP_FOCUS_AT_END,
-                TEXT_THEME);
+        text = new EditTextField(Field.FIELD_VCENTER | TextField.JUMP_FOCUS_AT_END, TEXT_THEME);
 
         text.setHint(tr(VikaResource.Write_message));
 
@@ -187,15 +180,11 @@ public class ConversationScreenGui extends ScreenGui {
         bottomContextWrapper.setPadding(DP2, DP2, DP2, DP2);
         bottomContext = new RightFieldManager();
 
-        contextCancel = new ButtonField(tr(VikaResource.Cancel), 0,
-                CANCEL_THEME);
-        contextForward = new ButtonField(tr(VikaResource.Forward_F), Field.FIELD_RIGHT,
-                FORWARD_THEME);
-        contextDelete = new ButtonField(tr(VikaResource.Delete_D), Field.FIELD_RIGHT,
-                DELETE_THEME);
+        contextCancel = new ButtonField(tr(VikaResource.Cancel), 0, CANCEL_THEME);
+        contextForward = new ButtonField(tr(VikaResource.Forward_F), Field.FIELD_RIGHT, FORWARD_THEME);
+        contextDelete = new ButtonField(tr(VikaResource.Delete_D), Field.FIELD_RIGHT, DELETE_THEME);
 
-        bottomAttachments = new HorizontalFieldManager(Field.USE_ALL_WIDTH
-                | Manager.HORIZONTAL_SCROLL);
+        bottomAttachments = new HorizontalFieldManager(Field.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL);
 
         Background bottomAttachmentsBg = new NinePatchBackground("Convs/Attaches/Bg.png");
         bottomAttachments.setBackground(bottomAttachmentsBg);
@@ -228,8 +217,6 @@ public class ConversationScreenGui extends ScreenGui {
         text.setChangeListener(new FieldChangeListener() {
 
             public void fieldChanged(Field field, int context) {
-                int a = 5;
-                a = 6;
                 screen.imTyping();
             }
         });

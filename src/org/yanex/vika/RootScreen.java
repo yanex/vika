@@ -569,7 +569,7 @@ public class RootScreen extends VkMainScreen implements ToolbarListener {
         super.onUndisplay();
     }
 
-    public void searchMessages(String query, boolean networkSearch) {
+    public void searchMessages(String query) {
         if (query == null) {
             return;
         }
@@ -750,7 +750,7 @@ public class RootScreen extends VkMainScreen implements ToolbarListener {
     }
 
     public boolean keyChar(char ch, int status, int time) {
-        return gui.keyChar(ch, status, time) || super.keyChar(ch, status, time);
+        return gui.keyChar(ch) || super.keyChar(ch, status, time);
     }
 
     protected boolean touchEvent(TouchEvent message) {

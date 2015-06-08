@@ -18,7 +18,7 @@ public class AttachmentDialog extends VkScreen implements FieldChangeListener {
     private static final Bitmap ICON_PHOTO = R.instance.getBitmap("Convs/AttachesMenu/Photo.png");
     private static final Bitmap ICON_MAP = R.instance.getBitmap("Convs/AttachesMenu/Map.png");
 
-    private CompoundButtonField camera, photo, map;
+    private final CompoundButtonField camera, photo, map;
 
     private int selection = -1;
 
@@ -46,7 +46,7 @@ public class AttachmentDialog extends VkScreen implements FieldChangeListener {
         setBackground(new NinePatchBackground("Convs/AttachesMenu/Bg.png"));
     }
 
-    public void dismiss() {
+    private void dismiss() {
         if (isVisible()) {
             this.close();
         }
@@ -67,11 +67,10 @@ public class AttachmentDialog extends VkScreen implements FieldChangeListener {
         return selection;
     }
 
-    public AttachmentDialog show() {
+    public void show() {
         if (!isVisible()) {
             UiApplication.getUiApplication().pushModalScreen(this);
         }
-        return this;
     }
 
     protected boolean keyChar(char c, int status, int time) {

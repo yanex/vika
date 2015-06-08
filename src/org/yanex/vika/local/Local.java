@@ -4,7 +4,7 @@ import net.rim.device.api.i18n.ResourceBundle;
 
 public class Local implements VikaResource {
 
-    private static Local instance = new Local();
+    private static final Local instance = new Local();
 
     public static String tr(int key) {
         return Local.instance.res.getString(key);

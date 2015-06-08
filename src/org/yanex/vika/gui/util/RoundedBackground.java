@@ -7,9 +7,9 @@ import net.rim.device.api.ui.decor.Background;
 
 public class RoundedBackground extends Background {
 
-    private int color;
+    private final int color;
     private int borderColor;
-    private int arc;
+    private final int arc;
     private boolean drawBorder = false;
     private XYEdges padding = new XYEdges();
 

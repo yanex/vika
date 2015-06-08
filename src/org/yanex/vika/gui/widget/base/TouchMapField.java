@@ -45,17 +45,12 @@ public class TouchMapField extends Field implements MapListener {
     public void fieldChangeNotify(int context) {
         try {
             this.getChangeListener().fieldChanged(this, context);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
-    // universial accessor for the map
     public BasicMapComponent getMap() {
         return this.map;
-    }
-
-    public boolean isTouchOkShow() {
-        return touchOkShow;
     }
 
     protected boolean keyDown(int keycode, int time) {
@@ -134,10 +129,6 @@ public class TouchMapField extends Field implements MapListener {
             g.drawBitmap(x, y, TouchMapField.OK_BITMAP.getWidth(),
                     TouchMapField.OK_BITMAP.getHeight(), TouchMapField.OK_BITMAP, 0, 0);
         }
-    }
-
-    public void setMapListener(final MapListener mL) {
-        mapListener = mL;
     }
 
     public void setTouchOkShow(boolean touchOkShow) {

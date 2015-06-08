@@ -393,7 +393,7 @@ public class ConversationScreenManager implements LongPollListener {
             }
         }
 
-        if (m != null && listItems != null && listItems.size() > 0) {
+        if (m != null && listItems.size() > 0) {
             return new Pair(m, listItems);
         } else return null;
     }
@@ -475,7 +475,7 @@ public class ConversationScreenManager implements LongPollListener {
                         uploadedFiles.put(filename, p);
                         success++;
                     } catch (Exception e) {
-                        continue;
+                        // Nothing to do
                     }
                 }
 
@@ -503,7 +503,7 @@ public class ConversationScreenManager implements LongPollListener {
                 public void run() {
                     while (true) {
                         try {
-                            boolean changed = checkTypingIds(typingUids);
+                            boolean changed = checkTypingIds();
 
                             if (changed) {
                                 UiApplication.getUiApplication().invokeLater(new Runnable() {
@@ -642,7 +642,7 @@ public class ConversationScreenManager implements LongPollListener {
         }
     }
 
-    private boolean checkTypingIds(LongHashtable typingIds) {
+    private boolean checkTypingIds() {
         LongEnumeration keys = typingUids.keys();
         long now = System.currentTimeMillis();
         boolean changed = false;

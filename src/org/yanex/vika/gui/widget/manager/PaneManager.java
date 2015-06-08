@@ -19,12 +19,13 @@ public class PaneManager extends HorizontalFieldManager implements PaneCaptionFe
         private static final int DISPLAY_TIME = 1;
         private static final int STEPS = 10;
 
-        private float fromX, toX;
-        private int totalTime;
-        private float step;
+        private final float fromX;
+        private final float toX;
+        private final int totalTime;
+        private final float step;
         private int stepTime;
         private volatile float x;
-        private Field moveFocusTo;
+        private final Field moveFocusTo;
 
         public Navigator(int fromX, int toX, Field moveFocusTo) {
             this.fromX = x = fromX;
@@ -88,8 +89,8 @@ public class PaneManager extends HorizontalFieldManager implements PaneCaptionFe
     }
 
     private class Pane extends VerticalFieldManager implements FocusChangeListener {
-        private int id;
-        private NullField firstField = new NullField();
+        private final int id;
+        private final NullField firstField = new NullField();
         private Field lastFocusedField;
         private Field content;
 
@@ -150,8 +151,8 @@ public class PaneManager extends HorizontalFieldManager implements PaneCaptionFe
     private int current = 0;
     private VkMainScreen owner;
 
-    private RichVector titles = new RichVector();
-    private PaneCaptionField caption;
+    private final RichVector titles = new RichVector();
+    private final PaneCaptionField caption;
 
     private NonFocusableNullField nnnf;
 

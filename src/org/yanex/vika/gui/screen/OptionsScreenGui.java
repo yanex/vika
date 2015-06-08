@@ -24,8 +24,7 @@ public class OptionsScreenGui extends ScreenGui {
     private static final Background LIGHT_BG =
             BackgroundFactory.createBitmapBackground(R.instance.getBitmap("LightBg.png"));
 
-    private static final Background SettingsGroupBackground =
-            new RoundedBackground(0xefefef, 6, true, 0xcccccc);
+    private static final Background SettingsGroupBackground = new RoundedBackground(0xefefef, 6, true, 0xcccccc);
 
     private final VerticalFieldManager settingsList;
 

@@ -9,9 +9,6 @@ public class Indicator {
 
     public static final Indicator instance = new Indicator();
 
-    private ApplicationIcon icon;
-    private ApplicationIndicator indicator;
-
     public Indicator() {
         register();
     }
@@ -84,10 +81,10 @@ public class Indicator {
     private ApplicationIndicator register() {
         try {
             ApplicationIndicatorRegistry reg = ApplicationIndicatorRegistry.getInstance();
-            indicator = reg.getApplicationIndicator();
+            ApplicationIndicator indicator = reg.getApplicationIndicator();
             if (indicator == null) {
                 EncodedImage mImage = EncodedImage.getEncodedImageResource("img/indicator.png");
-                icon = new ApplicationIcon(mImage);
+                ApplicationIcon icon = new ApplicationIcon(mImage);
                 indicator = reg.register(icon, false, true);
                 indicator.setValue(0);
                 indicator.setVisible(false);

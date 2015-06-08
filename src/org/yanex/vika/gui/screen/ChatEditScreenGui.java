@@ -54,36 +54,31 @@ public class ChatEditScreenGui extends ScreenGui implements FieldChangeListener 
 
     private final ChatEditScreen screen;
 
-    public VerticalFieldManager top;
-    public SimpleLabelField topTitle;
-    public ImageButtonField addUsers;
-    public RightFieldManager title;
-    public List list;
-    public CustomLabelField chatTitleCaption;
-    public EditTextField chatTitle;
-    public CustomLabelField chatMessageCaption;
-    public EditTextField chatMessage;
-    public ButtonField createChat;
-    public ButtonField changeSubject;
+    public final List list;
+    public final EditTextField chatTitle;
+    public final EditTextField chatMessage;
+
+    private final ImageButtonField addUsers;
+    private final ButtonField createChat;
+    private final ButtonField changeSubject;
 
     public ChatEditScreenGui(ChatEditScreen screen, boolean newMode) {
         this.screen = screen;
 
         screen.setFont(Fonts.defaultFont);
 
-        top = new VerticalFieldManager();
+        VerticalFieldManager top = new VerticalFieldManager();
         Bitmap bg = R.instance.getBitmap("LightBg.png");
         top.setBackground(BackgroundFactory.createBitmapBackground(bg));
         top.setPadding(DP3, DP8, DP3, DP8);
 
-        addUsers = new ImageButtonField(MULTI_ADD, DP14, DP14,
-                Field.FIELD_RIGHT, ADD_USER_THEME, false);
+        addUsers = new ImageButtonField(MULTI_ADD, DP14, DP14, Field.FIELD_RIGHT, ADD_USER_THEME, false);
         addUsers.setChangeListener(this);
 
-        topTitle = new SimpleLabelField(tr(VikaResource.Createchat), Field.FIELD_LEFT,
+        SimpleLabelField topTitle = new SimpleLabelField(tr(VikaResource.Createchat), Field.FIELD_LEFT,
                 Fonts.defaultBold, HEADER_LABEL_FRAME);
 
-        title = new RightFieldManager();
+        RightFieldManager title = new RightFieldManager();
         title.setBackground(HEADER_BACKGROUND);
 
         list = new List();
@@ -93,17 +88,13 @@ public class ChatEditScreenGui extends ScreenGui implements FieldChangeListener 
         chatTitle = new EditTextField(0, EDIT_THEME);
         chatMessage = new EditTextField(0, EDIT_THEME);
 
-        chatTitleCaption = new CustomLabelField(tr(VikaResource.Chat_title) + ":", 0,
-                LABEL_THEME);
-        chatMessageCaption = new CustomLabelField(tr(VikaResource.Chat_message) + ":", 0,
-                LABEL_THEME);
+        CustomLabelField chatTitleCaption = new CustomLabelField(tr(VikaResource.Chat_title) + ":", 0, LABEL_THEME);
+        CustomLabelField chatMessageCaption = new CustomLabelField(tr(VikaResource.Chat_message) + ":", 0, LABEL_THEME);
 
-        createChat = new ButtonField(tr(VikaResource.Createchat), Field.FIELD_HCENTER,
-                BUTTON_FRAME);
+        createChat = new ButtonField(tr(VikaResource.Createchat), Field.FIELD_HCENTER, BUTTON_FRAME);
         createChat.setChangeListener(this);
 
-        changeSubject = new ButtonField(tr(VikaResource.Change_subject), Field.FIELD_HCENTER,
-                BUTTON_FRAME);
+        changeSubject = new ButtonField(tr(VikaResource.Change_subject), Field.FIELD_HCENTER, BUTTON_FRAME);
         changeSubject.setChangeListener(this);
 
         title.add(topTitle);

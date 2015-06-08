@@ -64,7 +64,7 @@ public class AudioPlayer {
             if (volume >= 0) {
                 volumeControl.setLevel(Math.min(100, volume + 10));
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -86,7 +86,7 @@ public class AudioPlayer {
         }
     }
 
-    public boolean play(String url, String title, String performer) {
+    public void play(String url, String title, String performer) {
         if (player != null) {
             if (player.getState() == Player.STARTED) {
                 try {
@@ -127,9 +127,8 @@ public class AudioPlayer {
             } catch (Exception e) {
                 seekSupported = false;
             }
-            return true;
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
     }
 
@@ -204,7 +203,6 @@ public class AudioPlayer {
                     }
                 } catch (Exception e) {
                     interrupt();
-                    return;
                 }
             }
         };

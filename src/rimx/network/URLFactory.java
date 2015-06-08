@@ -10,10 +10,6 @@ public class URLFactory {
   private String absPath = "";
   private boolean isSecured = false;
 
-  private int portBeginsAt = -1;
-  private int absolutePathBeginsAt = -1;
-  private int httpParamIndex = -1;
-
   public URLFactory(String url) {
     this.url = url.trim();
 
@@ -30,8 +26,9 @@ public class URLFactory {
       isSecured = true;
     }
 
-    httpParamIndex = this.url.indexOf('?');
+    int httpParamIndex = this.url.indexOf('?');
 
+    int portBeginsAt = -1;
     if (httpParamIndex != -1 && this.url.indexOf(':') != -1
         && this.url.indexOf(':') < httpParamIndex) {
       portBeginsAt = this.url.indexOf(':');
@@ -39,6 +36,7 @@ public class URLFactory {
       portBeginsAt = this.url.indexOf(':');
     }
 
+    int absolutePathBeginsAt = -1;
     if (httpParamIndex != -1 && this.url.indexOf('/') != -1
         && this.url.indexOf('/') < httpParamIndex) {
       absolutePathBeginsAt = this.url.indexOf('/');

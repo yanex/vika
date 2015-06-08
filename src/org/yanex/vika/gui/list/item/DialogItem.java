@@ -18,8 +18,8 @@ import org.yanex.vika.util.network.State;
 public class DialogItem extends ListItem implements AbstractListItem, ImageLoaderCallback,
         SeveralImageLoaderCallback, GuiItem {
 
-    private static int HEIGHT = DP16;
-    private static int PADDING = DP2 * 3 / 4;
+    private static final int HEIGHT = DP16;
+    private static final int PADDING = DP2 * 3 / 4;
 
     private static final Background BACKGROUND_FOCUS = new GradientBackground(0x59a0e8, 0x1c65be);
     private static final Background BACKGROUND_NOTREAD_DEFAULT = new RoundedBackground(0xecf0f5);
@@ -36,7 +36,7 @@ public class DialogItem extends ListItem implements AbstractListItem, ImageLoade
     private static final Theme BLACK_THEME = new Theme().setPrimaryColor(0);
     private static final Theme BLUE_THEME = new Theme().setPrimaryColor(0x4f7ca3);
 
-    private static Theme BACKGROUND_THEME = new Theme()
+    private static final Theme BACKGROUND_THEME = new Theme()
             .setPrimaryColor(0x000000)
             .setSecondaryFontColor(0xFFFFFF)
             .setPaddingEdges(PADDING, PADDING, PADDING, PADDING)
@@ -49,7 +49,7 @@ public class DialogItem extends ListItem implements AbstractListItem, ImageLoade
     private AbstractBitmapField mainPhoto = null;
     private AbstractBitmapField authorPhoto = null;
 
-    private Message message;
+    private final Message message;
 
     private final String date;
     private final String title;
@@ -76,9 +76,7 @@ public class DialogItem extends ListItem implements AbstractListItem, ImageLoade
         text.setText(getContentString());
         text.setColor(textColor);
 
-        showMyPhoto =
-                (message.isOut()) ||
-                        (message.getChatActiveUsers() != null && message.getUser() != null);
+        showMyPhoto = (message.isOut()) || (message.getChatActiveUsers() != null && message.getUser() != null);
     }
 
     private String getContentString() {
@@ -102,9 +100,7 @@ public class DialogItem extends ListItem implements AbstractListItem, ImageLoade
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof DialogItem) {
-            return ((DialogItem) obj).getMessage().equals(message);
-        } else return false;
+        return obj instanceof DialogItem && ((DialogItem) obj).getMessage().equals(message);
     }
 
     public boolean filter(String filter) {

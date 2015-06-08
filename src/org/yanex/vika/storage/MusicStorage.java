@@ -10,8 +10,8 @@ public class MusicStorage {
 
     private static final long KEY = 0xd91175bb841136f9L;
 
-    private PersistentObject musicPO;
-    private Hashtable music;
+    private final PersistentObject musicPO;
+    private final Hashtable music;
 
     public static final MusicStorage instance = new MusicStorage();
 

@@ -9,8 +9,8 @@ public class OptionsStorage {
 
     private static final long KEY = 0x8789e43ac61919cL;
 
-    private PersistentObject optionsPO;
-    private Hashtable options;
+    private final PersistentObject optionsPO;
+    private final Hashtable options;
 
     public static final OptionsStorage instance = new OptionsStorage();
 

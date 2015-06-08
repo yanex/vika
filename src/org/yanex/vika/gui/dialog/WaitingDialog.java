@@ -13,17 +13,13 @@ import org.yanex.vika.gui.widget.base.GifAnimationField;
 
 public class WaitingDialog extends VkScreen implements GuiItem {
 
-    public static interface WaitingDialogListener {
-        public void onCancel();
+    public interface WaitingDialogListener {
+        void onCancel();
     }
 
-    private static Theme labelTheme;
-
-    static {
-        WaitingDialog.labelTheme = new Theme();
-        WaitingDialog.labelTheme.setPrimaryColor(0xE0E0E0);
-        WaitingDialog.labelTheme.setPaddingEdges(DP1, DP2, DP4, DP2);
-    }
+    private static final Theme labelTheme = new Theme()
+            .setPrimaryColor(0xE0E0E0)
+            .setPaddingEdges(DP1, DP2, DP4, DP2);
 
     private boolean cancellable = false;
     private WaitingDialogListener listener = null;
@@ -45,16 +41,7 @@ public class WaitingDialog extends VkScreen implements GuiItem {
     }
 
     public void dismiss() {
-        // if (isVisible())
         this.close();
-    }
-
-    public WaitingDialogListener getListener() {
-        return listener;
-    }
-
-    public boolean isCancellable() {
-        return cancellable;
     }
 
     protected boolean keyChar(char c, int status, int time) {
@@ -95,11 +82,8 @@ public class WaitingDialog extends VkScreen implements GuiItem {
 
         int desiredWidth = Math.max(getDelegate().getWidth() + 20, width / 2);
 
-        setExtent(Math.min(width - 60, desiredWidth),
-                Math.min(height - 60, getDelegate().getHeight() + 20));
-
+        setExtent(Math.min(width - 60, desiredWidth), Math.min(height - 60, getDelegate().getHeight() + 20));
         setPositionDelegate((getContentWidth() - getDelegate().getWidth()) / 2, 10);
-
         setPosition((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 }

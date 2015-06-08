@@ -26,16 +26,11 @@ import org.yanex.vika.util.tdparty.GoogleMaps;
 
 import java.util.Vector;
 
-public class VkPhotoAttachmentField extends FocusableField implements ImageLoaderCallback,
-        FieldChangeListener {
-
-    public static interface PhotoAttachmentFieldListener {
-        public void onSizeChange(int newWidth, int newHeight);
-    }
+public class VkPhotoAttachmentField extends FocusableField implements ImageLoaderCallback, FieldChangeListener {
 
     private static final int MAX_PHOTO_LOAD_ATTEMPTS = 3;
 
-    private static Bitmap VIDEO_TOP = R.instance.getBitmap("Other/VideoPlay.png");
+    private static final Bitmap VIDEO_TOP = R.instance.getBitmap("Other/VideoPlay.png");
 
     private Attachment attachment;
 
@@ -50,8 +45,6 @@ public class VkPhotoAttachmentField extends FocusableField implements ImageLoade
     private String text;
 
     private static Theme theme;
-
-    private PhotoAttachmentFieldListener attachmentListener;
 
     private int downscale = 1;
 
@@ -123,10 +116,6 @@ public class VkPhotoAttachmentField extends FocusableField implements ImageLoade
 
     public Attachment getAttachment() {
         return attachment;
-    }
-
-    public PhotoAttachmentFieldListener getAttachmentListener() {
-        return attachmentListener;
     }
 
     public int getPreferredHeight() {
@@ -266,12 +255,6 @@ public class VkPhotoAttachmentField extends FocusableField implements ImageLoade
         }
 
         g.setGlobalAlpha(oldAlpha);
-    }
-
-    public VkPhotoAttachmentField setAttachmentListener(
-            PhotoAttachmentFieldListener attachmentListener) {
-        this.attachmentListener = attachmentListener;
-        return this;
     }
 
     private void showVideo(final VideoAttachment va) {

@@ -13,7 +13,6 @@ import org.yanex.vika.gui.widget.base.CustomLabelField;
 public class ListBoxDialog extends Screen implements GuiItem {
 
     private static final Theme THEME_BUTTON, THEME_LABEL;
-    private int selection = -1;
 
     static {
         THEME_LABEL = new Theme();
@@ -27,6 +26,8 @@ public class ListBoxDialog extends Screen implements GuiItem {
         Background focusBackground = new NinePatchBackground("Convs/AttachesMenu/FocusBg.png");
         ListBoxDialog.THEME_BUTTON.setBackground(null, focusBackground, focusBackground, null);
     }
+
+    private int selection = -1;
 
     public ListBoxDialog(String label, String[] items) {
         super(new VerticalFieldManager());
@@ -44,7 +45,7 @@ public class ListBoxDialog extends Screen implements GuiItem {
 
         ButtonField[] buttons = new ButtonField[items.length];
 
-        int maxw = 0;
+        int maxWidth = 0;
 
         for (int i = 0; i < items.length; ++i) {
             final int index = i;
@@ -57,12 +58,12 @@ public class ListBoxDialog extends Screen implements GuiItem {
                     dismiss();
                 }
             });
-            maxw = Math.max(maxw, b.getPreferredWidth());
+            maxWidth = Math.max(maxWidth, b.getPreferredWidth());
             vfm.add(b);
         }
 
         for (int i = 0; i < items.length; ++i) {
-            buttons[i].setFixedWidth(maxw);
+            buttons[i].setFixedWidth(maxWidth);
         }
 
         add(vfm);

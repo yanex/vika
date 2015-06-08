@@ -8,7 +8,7 @@ public class Notifications {
     private static Notifications instance = null;
     private static final long NOTIFY_ID = 0x2073a8e5ee8b97eaL;
 
-    private static Object NOTIFY_OBJECT = new Object() {
+    private static final Object NOTIFY_OBJECT = new Object() {
         public String toString() {
             return "Vika";
         }

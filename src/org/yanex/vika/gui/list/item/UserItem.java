@@ -19,8 +19,7 @@ public class UserItem extends ListItem implements ImageLoaderCallback {
     private final AbstractBitmapField PHOTO_DEFAULT = new AbstractBitmapField(
             R.instance.getBitmap("camera.png"), new XYDimension(DP14, DP14), true, true);
 
-    private static final Background BACKGROUND_FOCUS =
-            new GradientBackground(0x59a0e8, 0x1c65be);
+    private static final Background BACKGROUND_FOCUS = new GradientBackground(0x59a0e8, 0x1c65be);
 
     private static final Theme THEME = new Theme()
             .setPrimaryColor(0x000000)

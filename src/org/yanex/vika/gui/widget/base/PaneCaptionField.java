@@ -14,9 +14,9 @@ import java.util.Vector;
 public class PaneCaptionField extends FocusableField {
 
     public interface PaneCaptionFeedback {
-        public void moveLeft(boolean fromCaption);
+        void moveLeft(boolean fromCaption);
 
-        public void moveRight(boolean fromCaption);
+        void moveRight(boolean fromCaption);
     }
 
     private Vector titles;

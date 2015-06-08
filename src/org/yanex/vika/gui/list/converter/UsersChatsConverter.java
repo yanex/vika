@@ -64,19 +64,4 @@ final class UsersChatsConverter {
         return listItems;
     }
 
-    static RichVector usersChats(UsersChats userVector) {
-        final RichVector listItems = new RichVector();
-
-        for (int i = 0; i < userVector.size(); ++i) {
-            Object o = userVector.getObject(i);
-            if (o instanceof User) {
-                listItems.addElement(new UserItem((User) o));
-            } else if (o instanceof Chat) {
-                listItems.addElement(new ChatItem((Chat) o));
-            }
-        }
-
-        return listItems;
-    }
-
 }

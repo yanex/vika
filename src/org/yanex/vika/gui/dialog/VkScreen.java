@@ -11,10 +11,6 @@ public abstract class VkScreen extends Screen implements GuiItem {
         super(manager);
     }
 
-    public VkScreen(Manager manager, long l) {
-        super(manager, l);
-    }
-
     public static String tr(int key) {
         return Local.tr(key);
     }

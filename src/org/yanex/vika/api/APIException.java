@@ -5,13 +5,9 @@ import json.JSONObject;
 
 public class APIException extends Exception {
 
-    private int errorCode;
-    private String captchaSid;
-    private String captchaImg;
-
-    public APIException() {
-        this.errorCode = ErrorCodes.UNKNOWN_ERROR;
-    }
+    private final int errorCode;
+    private final String captchaSid;
+    private final String captchaImg;
 
     public APIException(APIException e) {
         super(e.toString());
@@ -22,14 +18,22 @@ public class APIException extends Exception {
 
     public APIException(int errorCode) {
         this.errorCode = errorCode;
+        captchaImg = null;
+        captchaSid = null;
     }
 
     public APIException(JSONException e) {
         super(e.toString());
-        this.errorCode = ErrorCodes.JSON_ERROR;
+        errorCode = ErrorCodes.JSON_ERROR;
+        captchaImg = null;
+        captchaSid = null;
     }
 
     public APIException(JSONObject jso) {
+        String captchaSid = null;
+        String captchaImg = null;
+        int errorCode;
+
         try {
             if (jso.has("error")) {
                 JSONObject a = jso.getJSONObject("error");
@@ -41,11 +45,15 @@ public class APIException extends Exception {
                     captchaImg = a.getString("captcha_img");
                 }
             } else {
-                this.errorCode = ErrorCodes.JSON_ERROR;
+                errorCode = ErrorCodes.JSON_ERROR;
             }
         } catch (JSONException e) {
-            this.errorCode = ErrorCodes.JSON_ERROR;
+            errorCode = ErrorCodes.JSON_ERROR;
         }
+
+        this.errorCode = errorCode;
+        this.captchaImg = captchaImg;
+        this.captchaSid = captchaSid;
     }
 
     public String getCaptchaImg() {

@@ -10,7 +10,7 @@ import org.yanex.vika.gui.util.Theme;
 
 public class CustomPasswordEditField extends PasswordEditField {
 
-    private Theme theme;
+    private final Theme theme;
     private boolean isFocused = false;
 
     private Bitmap leftBitmap;
@@ -23,7 +23,7 @@ public class CustomPasswordEditField extends PasswordEditField {
     private String text = "";
     private boolean displayingHint = false;
 
-    private XYRect borderRect = new XYRect();
+    private final XYRect borderRect = new XYRect();
 
     public CustomPasswordEditField(Theme theme) {
         super();
@@ -85,7 +85,6 @@ public class CustomPasswordEditField extends PasswordEditField {
         isFocused = true;
 
         if (displayingHint) {
-            // setText("");
             displayingHint = false;
         }
 
@@ -97,12 +96,7 @@ public class CustomPasswordEditField extends PasswordEditField {
         isFocused = false;
 
         text = getText();
-        if (text == null || text.length() == 0) {
-            displayingHint = true;
-            // setText(hint);
-        } else {
-            displayingHint = false;
-        }
+        displayingHint = text == null || text.length() == 0;
 
         invalidate();
     }
@@ -160,11 +154,6 @@ public class CustomPasswordEditField extends PasswordEditField {
     public void setHint(String hint) {
         this.hint = hint;
 
-        if (text == null || text.length() == 0) {
-            displayingHint = true;
-            // setText(hint);
-        } else {
-            displayingHint = false;
-        }
+        displayingHint = text == null || text.length() == 0;
     }
 }

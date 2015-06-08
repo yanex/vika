@@ -12,7 +12,7 @@ public class ComplexListItem extends FocusableHFM implements AbstractListItem {
     private static final Background BACKGROUND_FOCUS =
             new GradientBackground(0x59a0e8, 0x1c65be);
 
-    private static Theme THEME = new Theme()
+    private static final Theme THEME = new Theme()
             .setPrimaryColor(0x000000)
             .setSecondaryFontColor(0xFFFFFF)
             .setBackground(null, BACKGROUND_FOCUS, BACKGROUND_FOCUS, null);

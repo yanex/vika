@@ -23,14 +23,4 @@ public class Blackberry {
         }
     }
 
-    public static void call(String number) {
-        if (number != null && number.length() > 0) {
-            try {
-                PhoneArguments call = new PhoneArguments(PhoneArguments.ARG_CALL, number);
-                Invoke.invokeApplication(Invoke.APP_TYPE_PHONE, call);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

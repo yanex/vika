@@ -21,7 +21,6 @@ public class VkBigPlayer extends HorizontalFieldManager implements FieldChangeLi
 
     private class CustomImageButton extends ImageButtonField {
 
-        private boolean localIsPlaying = false;
         private Bitmap defaultBitmap, focusedBitmap;
 
         public CustomImageButton() {
@@ -58,7 +57,6 @@ public class VkBigPlayer extends HorizontalFieldManager implements FieldChangeLi
                 setBitmap(defaultBitmap);
             }
 
-            localIsPlaying = isPlaying;
         }
 
     }
@@ -78,12 +76,11 @@ public class VkBigPlayer extends HorizontalFieldManager implements FieldChangeLi
 
     private boolean isPlaying = false;
 
-    private boolean launched = false;
-    private CustomImageButton button;
-    private CustomLabelField performer;
-    private CustomLabelField title;
+    private final CustomImageButton button;
+    private final CustomLabelField performer;
+    private final CustomLabelField title;
 
-    private SliderField slider;
+    private final SliderField slider;
 
     private static int lastWidth = -1;
 
@@ -148,22 +145,18 @@ public class VkBigPlayer extends HorizontalFieldManager implements FieldChangeLi
     public void onAudioEvent(int event, long duration, long position) {
         switch (event) {
             case AudioListener.GOODBYE:
-                launched = false;
                 isPlaying = false;
                 slider.setPosition(0);
                 button.updateState();
                 break;
             case AudioListener.POSITION:
-                float d = duration,
-                        p = position;
-                slider.setPosition(p / d);
+                slider.setPosition((float) position / (float) duration);
                 break;
             case AudioListener.PAUSE:
                 isPlaying = false;
                 button.updateState();
                 break;
             case AudioListener.PLAY:
-                launched = true;
                 isPlaying = true;
                 button.updateState();
                 slider.setShowSlider(AudioPlayer.instance.isSeekSupported());

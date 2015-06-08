@@ -104,7 +104,7 @@ class Loader implements Runnable {
                 }
             }
 
-            if (bytes == null || filename == null) {
+            if (bytes == null) {
                 fromNetwork = true;
                 bytes = HTTPMethods.downloadFile(url);
                 if (bytes == null) {

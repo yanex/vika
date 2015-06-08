@@ -15,7 +15,7 @@ public class TextField extends Manager {
 
     private class BitmapElement implements Element {
 
-        private Bitmap bitmap;
+        private final Bitmap bitmap;
 
         public BitmapElement(Bitmap bitmap) {
             this.bitmap = bitmap;
@@ -53,14 +53,14 @@ public class TextField extends Manager {
 
     }
 
-    private static interface Element {
-        public void draw(Graphics g, int x, int y);
+    private interface Element {
+        void draw(Graphics g, int x, int y);
 
-        public int getHeight();
+        int getHeight();
 
-        public int getWidth();
+        int getWidth();
 
-        public boolean isBlank();
+        boolean isBlank();
     }
 
     private class Line extends Vector implements Element {
@@ -191,7 +191,7 @@ public class TextField extends Manager {
 
     private class NewLineElement extends TextElement {
 
-        private int width;
+        private final int width;
 
         public NewLineElement(int width) {
             super("");

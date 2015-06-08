@@ -14,8 +14,8 @@ public class UsersStorage {
 
     private static final long KEY = 0x35f7517cb639dd31L;
 
-    private PersistentObject usersPO;
-    private Hashtable users;
+    private final PersistentObject usersPO;
+    private final Hashtable users;
 
     public static final UsersStorage instance = new UsersStorage();
 

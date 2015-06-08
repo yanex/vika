@@ -15,18 +15,15 @@ public abstract class FocusableHFM extends VerticalFieldManager implements Field
 
     private boolean isFocused = false;
     private boolean isActive = false;
-
     private boolean isFocusable = true;
-    private XYRect contentRect = new XYRect();
-    private XYRect borderRect = new XYRect();
 
-    private XYRect backgroundRect = new XYRect();
+    private final XYRect contentRect = new XYRect();
+    private final XYRect borderRect = new XYRect();
+    private final XYRect backgroundRect = new XYRect();
 
-    private int maxWidth = -1;
+    private final Theme theme;
 
-    private Theme theme;
     private FocusableNullField focusableNull;
-
     private FocusableNullField focusableNull2;
 
     private int id;
@@ -111,11 +108,7 @@ public abstract class FocusableHFM extends VerticalFieldManager implements Field
     }
 
     public int getPreferredWidth() {
-        if (maxWidth > 0) {
-            return maxWidth;
-        } else {
-            return super.getPreferredWidth();
-        }
+        return super.getPreferredWidth();
     }
 
     protected boolean invokeAction(int action) {

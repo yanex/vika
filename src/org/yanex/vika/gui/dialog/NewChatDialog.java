@@ -13,12 +13,11 @@ import org.yanex.vika.local.VikaResource;
 
 public class NewChatDialog extends Dialog implements FieldChangeListener {
 
-    private static final Bitmap WRITE_TO_FRIEND_BITMAP =
-            R.instance.getBitmap("Convs/Single.png");
-    private static final Bitmap CREATE_CHAT_BITMAP =
-            R.instance.getBitmap("Convs/Chat.png");
+    private static final Bitmap WRITE_TO_FRIEND_BITMAP = R.instance.getBitmap("Convs/Single.png");
+    private static final Bitmap CREATE_CHAT_BITMAP = R.instance.getBitmap("Convs/Chat.png");
 
-    private CompoundButtonField writeToFriend, createChat;
+    private final CompoundButtonField writeToFriend, createChat;
+
     private int selection = -1;
 
     public NewChatDialog() {
@@ -61,9 +60,7 @@ public class NewChatDialog extends Dialog implements FieldChangeListener {
 
         int desiredWidth = getDelegate().getWidth() + 20;
 
-        setExtent(Math.min(width - 60, desiredWidth),
-                Math.min(height - 60, getDelegate().getHeight() + 20));
-
+        setExtent(Math.min(width - 60, desiredWidth), Math.min(height - 60, getDelegate().getHeight() + 20));
         setPositionDelegate((getContentWidth() - getDelegate().getWidth()) / 2, 10);
         setPosition((width - getWidth()) / 2, (height - getHeight()) / 2);
     }

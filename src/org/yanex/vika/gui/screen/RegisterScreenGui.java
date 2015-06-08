@@ -30,12 +30,12 @@ public class RegisterScreenGui extends ScreenGui implements FieldChangeListener 
     private static final Background DARK_BG =
             BackgroundFactory.createBitmapBackground(R.instance.getBitmap(Files.DARK_BG));
 
-    private final RegisterScreen screen;
+    public final EditTextField phone;
+    public final EditTextField firstName;
+    public final EditTextField familyName;
+    public final ButtonField register;
 
-    public EditTextField phone;
-    public EditTextField firstName;
-    public EditTextField familyName;
-    public ButtonField register;
+    private final RegisterScreen screen;
 
     public RegisterScreenGui(RegisterScreen screen) {
         this.screen = screen;

@@ -20,8 +20,6 @@ public class VkDocumentAttachmentField extends ImageTextButtonField implements F
 
     private static final Bitmap IMAGE = R.instance.getBitmap("Convs/DocIcon.png");
 
-    private int forceWidth = -1;
-
     static {
         theme = new Theme();
         VkDocumentAttachmentField.theme.setPrimaryColor(0xFFFFFF);
@@ -36,7 +34,7 @@ public class VkDocumentAttachmentField extends ImageTextButtonField implements F
         VkDocumentAttachmentField.theme.setPaddingEdges(DP2, DP2, DP2, DP2);
     }
 
-    private DocumentAttachment attachment;
+    private final DocumentAttachment attachment;
 
     public VkDocumentAttachmentField(DocumentAttachment attachment) {
         super(attachment.getTitle(), VkDocumentAttachmentField.IMAGE, Field.FIELD_HCENTER,
@@ -49,22 +47,6 @@ public class VkDocumentAttachmentField extends ImageTextButtonField implements F
         if (!Blackberry.launch(attachment.getUrl())) {
             Dialog.alert(VkMainScreen.tr(VikaResource.UNABLE_TO_OPEN_ATTACHMENT));
         }
-    }
-
-    public int getForceWidth() {
-        return forceWidth;
-    }
-
-    public int getPreferredWidth() {
-        if (forceWidth > 0) {
-            return forceWidth;
-        } else {
-            return super.getPreferredWidth();
-        }
-    }
-
-    public void setForceWidth(int forceWidth) {
-        this.forceWidth = forceWidth;
     }
 
 }

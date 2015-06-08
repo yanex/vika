@@ -485,7 +485,7 @@ public class LongPoll extends APIParser {
                         }
                     }
 
-                    int errorCode = 0;
+                    int errorCode;
                     do {
                         try {
                             RichVector updates = getLongPollHistory(connection);

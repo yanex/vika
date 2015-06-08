@@ -16,7 +16,7 @@ public class SeparatorItem extends ListItem {
     private static final Background BACKGROUND_FOCUS =
             new GradientBackground(0xe5e5e5, 0xd5d5d5, 1, 0xd0d0d0, 1, 0xc6c6c6);
 
-    private static Theme THEME = new Theme()
+    private static final Theme THEME = new Theme()
             .setPrimaryColor(0x555555)
             .setSecondaryFontColor(0xFFFFFF)
             .setPaddingEdges(DP2, DP2, DP1, DP2)

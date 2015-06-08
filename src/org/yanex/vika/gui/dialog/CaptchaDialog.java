@@ -25,20 +25,19 @@ import org.yanex.vika.util.network.ImageLoaderCallback;
 
 import javax.microedition.lcdui.TextField;
 
-public class CaptchaDialog extends VkScreen implements
-        FieldChangeListener, ImageLoaderCallback, GuiItem {
+public class CaptchaDialog extends VkScreen implements FieldChangeListener, ImageLoaderCallback, GuiItem {
 
     private static final int MAX_PHOTO_LOAD_ATTEMPTS = 3;
 
     private static final Theme labelTheme =
             new Theme().setPrimaryColor(0xE0E0E0).setPaddingEdges(DP1, DP1, DP1, DP1);
 
-    private VerticalFieldManager captchaWrapper;
-    private EditTextField text;
-    private ButtonField ok;
-    private ButtonField cancel;
+    private final VerticalFieldManager captchaWrapper;
+    private final EditTextField text;
+    private final ButtonField ok;
+    private final ButtonField cancel;
+    private final BitmapField captchaField;
 
-    private BitmapField captchaField;
     private int captchaLoadAttempts = 0;
 
     private String code = null;
@@ -117,7 +116,7 @@ public class CaptchaDialog extends VkScreen implements
         add(buttonWrapper);
     }
 
-    public void dismiss() {
+    private void dismiss() {
         UiApplication.getUiApplication().popScreen(this);
     }
 

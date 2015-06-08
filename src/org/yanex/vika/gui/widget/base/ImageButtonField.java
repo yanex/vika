@@ -14,10 +14,10 @@ public class ImageButtonField extends FocusableField {
     private int imageWidth;
     private int imageHeight;
 
-    private int fullWidth;
-    private int fullHeight;
+    private final int fullWidth;
+    private final int fullHeight;
 
-    private boolean scale;
+    private final boolean scale;
 
     public ImageButtonField(Bitmap bmp, int width, int height, long style, Theme theme, boolean scale) {
         super(style, theme);

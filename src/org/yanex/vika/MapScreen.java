@@ -29,10 +29,10 @@ import org.yanex.vika.util.tdparty.IPLocation;
 
 public class MapScreen extends VkMainScreen {
 
-    static interface MapListener {
-        public void onMapCancel();
+    interface MapListener {
+        void onMapCancel();
 
-        public void onMapSelected(double latitude, double longitude);
+        void onMapSelected(double latitude, double longitude);
     }
 
     private static final Image CURSOR = new Image(R.instance.getBitmap("Convs/Location.png"));
@@ -73,6 +73,7 @@ public class MapScreen extends VkMainScreen {
     }
 
     private void init(WgsPoint point, int startZoomLevel) {
+        //noinspection deprecation
         mapComponent = new BasicMapComponent(
                 Configuration.MAP_LICENCE_KEY, Configuration.MAP_LICENCE_AUTHOR, Configuration.MAP_LICENCE_APP_NAME, 320,
                 240, point, startZoomLevel);

@@ -13,9 +13,9 @@ public class CustomLabelField extends LabelField implements GuiItem {
         return Ui.convertSize(pt, Ui.UNITS_pt, Ui.UNITS_px);
     }
 
-    private Theme theme = null;
+    private final Theme theme;
 
-    private XYRect borderRect = new XYRect();
+    private final XYRect borderRect = new XYRect();
 
     public CustomLabelField(Object text, long style, Theme theme) {
         super(text, style);

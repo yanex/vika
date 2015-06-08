@@ -19,17 +19,14 @@ import org.yanex.vika.gui.widget.base.ImageSelectorField;
 public class VkToolbar extends VerticalFieldManager implements FocusChangeListener,
         FieldChangeListener {
 
-    public static interface ToolbarListener {
-        public boolean toolbarClicked(int current);
+    public interface ToolbarListener {
+        boolean toolbarClicked(int current);
     }
 
     private static Theme buttonTheme;
 
-    private Field lastActiveField;
-
     private int lastWidth = -1;
 
-    private int buttonWidth;
     private ImageSelectorField messages, friends, search, settings, write;
 
     private ImageSelectorField current;
@@ -52,14 +49,13 @@ public class VkToolbar extends VerticalFieldManager implements FocusChangeListen
         super(Field.USE_ALL_WIDTH);
 
         Background bg = new GradientBackground(0x181818, 0x0f0f0f, 1, 0x000000, 0, 0x000000);
-        // Background bg = new NinePatchBackground(Files.TABS_TABBAR_BG);
         setBackground(bg);
 
         int px1 = px(1);
 
         int width = Display.getWidth();
 
-        buttonWidth = (width - px1 * 2) / 5;
+        int buttonWidth = (width - px1 * 2) / 5;
         px1 += (width - buttonWidth * 5) / 2;
 
         setPadding(px(2) * 2 / 3, px1, px(1), px1);

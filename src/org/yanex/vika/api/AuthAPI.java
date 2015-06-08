@@ -8,10 +8,11 @@ import org.yanex.vika.api.util.CaptchaInfo;
 
 public class AuthAPI extends APIParser {
 
-    private Api api;
     public static final AuthAPI instance = new AuthAPI();
 
-    AuthAPI() {
+    private final Api api;
+
+    private AuthAPI() {
         this.api = new VkApi(null);
     }
 

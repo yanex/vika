@@ -6,21 +6,13 @@ import net.rim.device.api.system.RadioInfo;
 public class Network {
 
     private static boolean hasSignal() {
-        if (RadioInfo.getState() == RadioInfo.STATE_OFF
-                || RadioInfo.getSignalLevel() == RadioInfo.LEVEL_NO_COVERAGE) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(RadioInfo.getState() == RadioInfo.STATE_OFF
+                || RadioInfo.getSignalLevel() == RadioInfo.LEVEL_NO_COVERAGE);
     }
 
     private static boolean hasWifi() {
-        if ((RadioInfo.getActiveWAFs() & RadioInfo.WAF_WLAN) != 0) {
-            return CoverageInfo.isCoverageSufficient(CoverageInfo.COVERAGE_DIRECT,
-                    RadioInfo.WAF_WLAN, true);
-        } else {
-            return false;
-        }
+        return (RadioInfo.getActiveWAFs() & RadioInfo.WAF_WLAN) != 0
+                && CoverageInfo.isCoverageSufficient(CoverageInfo.COVERAGE_DIRECT, RadioInfo.WAF_WLAN, true);
     }
 
     public static boolean test() {

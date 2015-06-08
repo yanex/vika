@@ -14,8 +14,6 @@ public class AbstractBitmapField {
     private Bitmap bmp = null;
     private NinePatchBitmap npbmp = null;
 
-    private XYEdges edges = new XYEdges();
-
     private int height = 0, width = 0;
 
     public AbstractBitmapField(Bitmap bmp, XYDimension size, boolean scale) {
@@ -67,19 +65,11 @@ public class AbstractBitmapField {
         return height;
     }
 
-    public XYEdges getPadRect() {
-        if (isNinePatch()) {
-            return npbmp.getPadding();
-        } else {
-            return edges; // empty
-        }
-    }
-
     public int getWidth() {
         return width;
     }
 
-    public boolean isNinePatch() {
+    private boolean isNinePatch() {
         return npbmp != null;
     }
 }

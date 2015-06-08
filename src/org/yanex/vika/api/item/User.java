@@ -26,7 +26,7 @@ public class User implements Persistable {
     }
 
     public User(long id, String firstName, String lastName, String photoURL, boolean online,
-                long lastSeen, boolean male, String mobilePhone) {
+                long lastSeen, boolean male) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

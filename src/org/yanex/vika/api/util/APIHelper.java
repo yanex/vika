@@ -15,16 +15,13 @@ public abstract class APIHelper {
 
     private static final int CAPTCHA_INPUT_ERROR = -1000;
 
-    private static ExtendedTaskWorker worker =
+    private static final ExtendedTaskWorker worker =
             new ExtendedTaskWorker(6, Thread.MIN_PRIORITY, ExtendedTaskWorker.TYPE_MINPENDING);
 
     private volatile boolean interrupted = false;
     private CaptchaInfo captcha = null;
 
     public abstract void after(Object result);
-
-    public void before() {
-    }
 
     public CaptchaInfo captcha() {
         return captcha;
@@ -58,8 +55,6 @@ public abstract class APIHelper {
     }
 
     public void start() {
-        before();
-
         Runnable r = new ApiTask();
         APIHelper.worker.addTask(r);
     }

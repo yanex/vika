@@ -36,10 +36,6 @@ public class UsersChats extends ImmutableList {
         return new Users(filter(User.class));
     }
 
-    public long getAllCount() {
-        return allCount;
-    }
-
     public Chat getChat(int index) {
         return (Chat) getObject(index);
     }

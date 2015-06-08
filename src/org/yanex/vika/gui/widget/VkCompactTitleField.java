@@ -14,12 +14,10 @@ public class VkCompactTitleField extends Field {
         return Ui.convertSize(pt, Ui.UNITS_pt, Ui.UNITS_px);
     }
 
-    private EncodedImage image;
-    private int height;
-    private int width;
+    private final EncodedImage image;
     private int currentFrame = 0;
 
-    private int frameCount;
+    private final int frameCount;
 
     private int updating = 0;
 
@@ -38,8 +36,6 @@ public class VkCompactTitleField extends Field {
         setBackground(VkCompactTitleField.BACKGROUND);
         image = EncodedImage.getEncodedImageResource("loading_small.gif");
         frameCount = image.getFrameCount();
-        height = image.getHeight();
-        width = image.getWidth();
     }
 
     public VkCompactTitleField(String text) {

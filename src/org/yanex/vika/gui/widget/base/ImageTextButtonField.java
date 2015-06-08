@@ -12,8 +12,8 @@ public class ImageTextButtonField extends FocusableField {
 
     private static final int INTERVAL = DP1;
 
-    private String text;
-    private Bitmap bmp;
+    private final String text;
+    private final Bitmap bmp;
 
     private int fixedWidth = -1, fixedHeight = -1;
 

@@ -27,7 +27,7 @@ class FileSelectWindow extends VkMainScreen implements ListListener {
     private final RichVector ext;
 
     private String filename = null;
-    private Stack stack = new Stack();
+    private final Stack stack = new Stack();
 
     FileSelectWindow(Vector ext) {
         this.ext = new RichVector(ext);

@@ -17,12 +17,12 @@ import java.util.Vector;
 
 public class ImageLoader {
 
-    public static ImageLoader instance = new ImageLoader();
+    public static final ImageLoader instance = new ImageLoader();
 
-    private ExtendedTaskWorker worker = new ExtendedTaskWorker(3, Thread.MIN_PRIORITY,
+    private final ExtendedTaskWorker worker = new ExtendedTaskWorker(3, Thread.MIN_PRIORITY,
             ExtendedTaskWorker.TYPE_MINPENDING);
 
-    static Hashtable MEMCACHE = new Hashtable();
+    static final Hashtable MEMCACHE = new Hashtable();
 
     private ImageLoader() {
 
@@ -61,12 +61,11 @@ public class ImageLoader {
 
     public void load(final String[] url, String tag,
                      final XYDimension size, final SeveralImageLoaderCallback callback) {
-        load(url, tag, size.width, size.height, true, callback, true);
+        load(url, tag, size.width, size.height, true, callback);
     }
 
     public void load(final String[] url, final String tag, final int width, final int height,
-                     final boolean roundAngles, final SeveralImageLoaderCallback callback,
-                     final boolean cacheInMemory) {
+                     final boolean roundAngles, final SeveralImageLoaderCallback callback) {
         final int len = Math.min(url.length, 4);
 
         final Bitmap[] bitmaps = new Bitmap[len];
@@ -185,7 +184,7 @@ public class ImageLoader {
                         ImageCacheStorage.instance.findAndDelete(filename);
                         DeviceMemory.delete(fsoFile.where + fsoFile.name);
                     }
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }

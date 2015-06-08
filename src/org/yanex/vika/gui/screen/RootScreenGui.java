@@ -433,7 +433,7 @@ public class RootScreenGui extends ScreenGui {
                         tabMessages.add(messagesPeopleSearchList);
                         tabMessages.add(messagesSearchList);
                     }
-                    screen.searchMessages(text, key == 10 || key == 13);
+                    screen.searchMessages(text);
                 }
             }
 
@@ -562,7 +562,7 @@ public class RootScreenGui extends ScreenGui {
         });
     }
 
-    public boolean keyChar(char ch, int status, int time) {
+    public boolean keyChar(char ch) {
         if (ch == 'F' || ch == 'f') {
             if (currentTab == tabFriends) {
                 if (!friendsSearch.isFocus()) {

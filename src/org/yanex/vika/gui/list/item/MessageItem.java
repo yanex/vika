@@ -17,7 +17,6 @@ import org.yanex.vika.gui.util.*;
 import org.yanex.vika.gui.widget.VkAudioAttachmentField;
 import org.yanex.vika.gui.widget.VkDocumentAttachmentField;
 import org.yanex.vika.gui.widget.VkPhotoAttachmentField;
-import org.yanex.vika.gui.widget.VkPhotoAttachmentField.PhotoAttachmentFieldListener;
 import org.yanex.vika.gui.widget.base.*;
 import org.yanex.vika.gui.widget.manager.BalloonFieldManager;
 import org.yanex.vika.gui.widget.manager.FocusableHFM;
@@ -31,8 +30,7 @@ import org.yanex.vika.util.fun.RichVector;
 
 import java.util.Vector;
 
-public class MessageItem extends FocusableHFM implements AbstractListItem,
-        PhotoAttachmentFieldListener {
+public class MessageItem extends FocusableHFM implements AbstractListItem {
 
     private class CopyMenuItem extends MenuItem {
         public CopyMenuItem() {
@@ -69,25 +67,24 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
 
     private class V {
 
-        private HorizontalFieldManager root;
-        private VerticalFieldManager roof;
+        private final HorizontalFieldManager root;
+        private final VerticalFieldManager roof;
 
-        private HorizontalFieldManager hfmLeft;
+        private final HorizontalFieldManager hfmLeft;
 
-        private MaxWidthVerticalFieldManager balloonOutside;
-        private BalloonFieldManager balloon;
+        private final MaxWidthVerticalFieldManager balloonOutside;
+        private final BalloonFieldManager balloon;
 
-        private HorizontalFieldManager hfmRight;
+        private final HorizontalFieldManager hfmRight;
 
-        private TextField text;
-        private ActiveRichTextField activeText;
+        private final TextField text;
 
-        private CustomLabelField topTextLabel;
+        private final CustomLabelField topTextLabel;
 
-        private SimpleLabelField date;
-        private ImageField delivered;
+        private final SimpleLabelField date;
+        private final ImageField delivered;
 
-        private AutoLoadingBitmapField userIcon;
+        private final AutoLoadingBitmapField userIcon;
 
         public V() {
             root = new HorizontalFieldManager(message.isOut() ? Field.FIELD_RIGHT : 0);
@@ -101,59 +98,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
             hfmRight = new HorizontalFieldManager(Field.FIELD_BOTTOM);
 
             balloonOutside.add(balloon);
-
-            activeText = new ActiveRichTextField("", RichTextField.USE_TEXT_WIDTH) {
-
-                protected boolean invokeAction(int action) {
-                    switch (action) {
-                        case ACTION_INVOKE: {
-                            launch();
-                            return true;
-                        }
-                    }
-
-                    return super.invokeAction(action);
-                }
-
-                protected boolean keyChar(char character, int status, int time) {
-                    if (character == Characters.ENTER) {
-                        launch();
-                        return true;
-                    }
-
-                    return super.keyChar(character, status, time);
-                }
-
-                private void launch() {
-                    String url = getRegionText();
-                    if (url != null & url.length() > 0) {
-                        Blackberry.launch(url);
-                    }
-                }
-
-                protected boolean navigationUnclick(int status, int time) {
-                    launch();
-
-                    return true;
-                }
-
-                protected boolean touchEvent(TouchEvent message) {
-                    boolean isOutOfBounds = touchEventOutOfBounds(message);
-
-                    if (message.getEvent() == TouchEvent.UNCLICK && !isOutOfBounds) {
-                        launch();
-                        return true;
-                    }
-
-                    return super.touchEvent(message);
-                }
-
-                private boolean touchEventOutOfBounds(TouchEvent message) {
-                    int x = message.getX(1);
-                    int y = message.getY(1);
-                    return x < 0 || y < 0 || x > getWidth() || y > getHeight();
-                }
-            };
 
             text = new TextField();
 
@@ -336,22 +280,8 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
         setRead(message.isRead());
 
         if (message.getBody() != null && message.getBody().length() > 0) {
-
-            if (testActive(message.getBody())) {
-
-                int[] offsets = {0, message.getBody().length()};
-                Font[] fonts = {Fonts.defaultFont};
-                byte[] attributes = {0};
-                int[] foregroundColors = {0};
-                int[] backgroundColors = {-1};
-
-                v.activeText.setText(message.getBody(), offsets, attributes, fonts,
-                        foregroundColors, backgroundColors);
-                v.balloon.add(v.activeText);
-            } else {
-                v.text.setText(message.getBody());
-                v.balloon.add(v.text);
-            }
+            v.text.setText(message.getBody());
+            v.balloon.add(v.text);
         }
 
         int i;
@@ -368,7 +298,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
                     PhotoAttachment pa = (PhotoAttachment) a;
                     if (pa.getSrc() != null && pa.getSrc().length() > 0) {
                         VkPhotoAttachmentField item = new VkPhotoAttachmentField(pa);
-                        item.setAttachmentListener(this);
                         photoItems.addElement(item);
                     }
                 } else if (a instanceof DocumentAttachment) {
@@ -378,7 +307,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
                             || da.getExt().toLowerCase().equals("jpg") || da.getExt()
                             .toLowerCase().equals("gif"))) {
                         VkPhotoAttachmentField item = new VkPhotoAttachmentField(da);
-                        item.setAttachmentListener(this);
                         documentItems.addElement(item);
                     } else {
                         VkDocumentAttachmentField item = new VkDocumentAttachmentField(da);
@@ -387,7 +315,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
                 } else if (a instanceof VideoAttachment) {
                     VideoAttachment va = (VideoAttachment) a;
                     VkPhotoAttachmentField item = new VkPhotoAttachmentField(va);
-                    item.setAttachmentListener(this);
                     videoItems.addElement(item);
                 } else if (a instanceof AudioAttachment) {
                     AudioAttachment aa = (AudioAttachment) a;
@@ -405,7 +332,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
 
         if (message.getGeo() != null) {
             VkPhotoAttachmentField item = new VkPhotoAttachmentField(new GeoAttachment(message));
-            item.setAttachmentListener(this);
             v.balloon.add(item);
         }
 
@@ -522,8 +448,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
                 ForwardedMessageItem fmi = (ForwardedMessageItem) forwardedItems.elementAt(i);
                 fmi.drawFocus();
             }
-
-            updateActiveBackground(true);
         }
     }
 
@@ -546,13 +470,7 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
                 ForwardedMessageItem fmi = (ForwardedMessageItem) forwardedItems.elementAt(i);
                 fmi.drawUnfocus();
             }
-
-            updateActiveBackground(false);
         }
-    }
-
-    public void onSizeChange(int newWidth, int newHeight) {
-        updateLayout();
     }
 
     protected void paint(Graphics g) {
@@ -653,34 +571,6 @@ public class MessageItem extends FocusableHFM implements AbstractListItem,
             v.topTextLabel.setText(topText);
             if (v.roof.getFieldCount() == 0) {
                 v.roof.add(v.topTextLabel);
-            }
-        }
-    }
-
-    private boolean testActive(String text) {
-        if (true) {
-            return false;
-        }
-
-        try {
-            return MessageItem.LINK_REGEXP.match(text);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private void updateActiveBackground(boolean focused) {
-        if (message.getBody() != null && message.getBody().length() > 0) {
-            if (testActive(message.getBody())) {
-
-                int[] offsets = {0, message.getBody().length()};
-                Font[] fonts = {Fonts.defaultFont};
-                byte[] attributes = {0};
-                int[] foregroundColors = {focused ? 0xffffff : 0};
-                int[] backgroundColors = {-1};
-
-                v.activeText.setText(message.getBody(), offsets, attributes, fonts,
-                        foregroundColors, backgroundColors);
             }
         }
     }

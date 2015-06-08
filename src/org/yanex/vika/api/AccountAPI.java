@@ -11,7 +11,7 @@ public class AccountAPI extends APIParser {
         this.api = api;
     }
 
-    public long online(CaptchaInfo captcha) throws APIException {
-        return parseBulk(api.process(captcha, "account.setOnline", Arguments.with("voip", 0)));
+    public void online(CaptchaInfo captcha) throws APIException {
+        parseBulk(api.process(captcha, "account.setOnline", Arguments.with("voip", 0)));
     }
 }

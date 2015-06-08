@@ -26,20 +26,6 @@ public class SortingVector {
         this((Vector) null);
     }
 
-    public SortingVector(ImmutableList v) {
-        if (v == null) {
-            throw new NullPointerException("Vector can't be null");
-        }
-
-        vector = new SimpleSortingVector(v.size());
-        for (int i = 0; i < v.size(); ++i) {
-            Object o = v.getObject(i);
-            vector.addElement(testElement(o));
-        }
-
-        vector.setSortComparator(SortingVector.COMPARATOR);
-    }
-
     public SortingVector(Vector v) {
         vector = new SimpleSortingVector(v == null ? DEFAULT_SIZE : v.size());
 
@@ -75,16 +61,8 @@ public class SortingVector {
         return Vectors2.clone(vector);
     }
 
-    public Enumeration elements() {
-        return vector.elements();
-    }
-
     public Object get(int index) {
         return vector.elementAt(index);
-    }
-
-    public void insert(Object obj, int index) {
-        vector.insertElementAt(obj, index);
     }
 
     public boolean isEmpty() {

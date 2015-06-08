@@ -10,17 +10,13 @@ import org.yanex.vika.util.network.Network;
 public class Authentication {
 
     public static class Token {
-        private String token;
-        private long userId;
-        private String secret;
-
-        public Token(String token, long userId) {
-            this.token = token;
-            this.userId = userId;
-        }
+        private final String token;
+        private final long userId;
+        private final String secret;
 
         public Token(String token, long userId, String secret) {
-            this(token, userId);
+            this.token = token;
+            this.userId = userId;
             this.secret = secret;
         }
 
@@ -60,7 +56,7 @@ public class Authentication {
             if (jso.has("access_token") && jso.has("user_id")) {
                 String token = jso.getString("access_token");
                 long userId = jso.getLong("user_id");
-                return new Token(token, userId);
+                return new Token(token, userId, null);
             } else {
                 throw new APIException(jso);
             }

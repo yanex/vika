@@ -6,7 +6,8 @@ import net.rim.device.api.ui.decor.Background;
 
 public class GradientBackground extends Background {
 
-    private int startColor, endColor;
+    private final int startColor;
+    private final int endColor;
     private int topBorderHeight = 0, topBorderColor = 0;
     private int bottomBorderHeight = 0, bottomBorderColor = 0;
 

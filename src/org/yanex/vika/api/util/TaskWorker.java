@@ -5,7 +5,6 @@ import java.util.Vector;
 public class TaskWorker implements Runnable {
 
     private final Vector queue = new Vector();
-    private volatile boolean interrupted = false;
 
     public TaskWorker() {
         new Thread(this).start();
@@ -19,10 +18,8 @@ public class TaskWorker implements Runnable {
 
     public void addTask(Runnable task) {
         synchronized (queue) {
-            if (!interrupted) {
-                queue.addElement(task);
-                queue.notify();
-            }
+            queue.addElement(task);
+            queue.notify();
         }
     }
 
@@ -31,7 +28,7 @@ public class TaskWorker implements Runnable {
     }
 
     public void run() {
-        while (!interrupted) {
+        while (true) {
             Runnable task = getNext();
             if (task != null) {
                 task.run();
@@ -44,10 +41,6 @@ public class TaskWorker implements Runnable {
                 }
             }
         }
-    }
-
-    public void interrupt() {
-        interrupted = true;
     }
 
     private Runnable getNext() {

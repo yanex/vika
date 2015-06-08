@@ -92,7 +92,7 @@ public class DeviceMemory {
         return ret;
     }
 
-    private static boolean forceInternalMemory = false;
+    private static final boolean forceInternalMemory = false;
 
     public static long getDirectorySize(String path) {
         try {

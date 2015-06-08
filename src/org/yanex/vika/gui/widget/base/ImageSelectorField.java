@@ -17,13 +17,13 @@ public class ImageSelectorField extends FocusableField {
 
     private boolean isSelected = false;
 
-    private int imageWidth;
-    private int imageHeight;
+    private final int imageWidth;
+    private final int imageHeight;
 
-    private int fullWidth;
-    private int fullHeight;
+    private final int fullWidth;
+    private final int fullHeight;
 
-    private boolean scale;
+    private final boolean scale;
 
     public ImageSelectorField(Bitmap defaultBmp, Bitmap focusBmp, Bitmap activeBmp,
                               Bitmap selectedBmp,

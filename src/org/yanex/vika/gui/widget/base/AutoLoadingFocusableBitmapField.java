@@ -24,9 +24,7 @@ public class AutoLoadingFocusableBitmapField extends FocusableField implements I
     private final int downscale;
     private final int roundAngle;
 
-    private AbstractBitmapField defaultBitmap;
-
-    public AutoLoadingFocusableBitmapField(int width, int height, long style, boolean scale,
+    public AutoLoadingFocusableBitmapField(int width, int height, long style,
                                            int scaleMode, int downscale, int roundAngle, Theme theme) {
         super(style, theme);
         this.height = height;
@@ -46,10 +44,6 @@ public class AutoLoadingFocusableBitmapField extends FocusableField implements I
 
     public AbstractBitmapField getBitmap() {
         return bitmap;
-    }
-
-    public AbstractBitmapField getDefaultBitmap() {
-        return defaultBitmap;
     }
 
     public int getH() {
@@ -115,10 +109,6 @@ public class AutoLoadingFocusableBitmapField extends FocusableField implements I
 
             g.setGlobalAlpha(oldAlpha);
         } else {
-            if (defaultBitmap != null) {
-                defaultBitmap.draw(g, 0, 0, getContentWidth(), getContentHeight());
-            }
-
             if (photoState == State.None) {
                 load();
             }
@@ -143,10 +133,6 @@ public class AutoLoadingFocusableBitmapField extends FocusableField implements I
     public void setBitmap(Bitmap bmp) {
         bitmap = new AbstractBitmapField(bmp, new XYDimension(width, height), false);
         invalidate();
-    }
-
-    public void setDefaultBitmap(AbstractBitmapField defaultBitmap) {
-        this.defaultBitmap = defaultBitmap;
     }
 
     public void setText(String text) {

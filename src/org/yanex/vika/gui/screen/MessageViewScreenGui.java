@@ -24,9 +24,7 @@ import java.util.Vector;
 public class MessageViewScreenGui extends ScreenGui {
 
     private static Background OUTER_BG = new RoundedBackground(0xefefef, 6, true, 0xcccccc);
-
-    private static Background INNER_BG = BackgroundFactory.createBitmapBackground(R.instance
-            .getBitmap("LightBg.png"));
+    private static Background INNER_BG = BackgroundFactory.createBitmapBackground(R.instance.getBitmap("LightBg.png"));
 
     public static final Theme BLACK_THEME = new Theme().setPrimaryColor(0),
             GRAY_THEME = new Theme().setPrimaryColor(0x91a4b6),
@@ -102,17 +100,8 @@ public class MessageViewScreenGui extends ScreenGui {
     }
 
     public void addBody(String body) {
-        if (testActive(body)) {
-            activeText.setText(body);
-            mainLayout.add(activeText);
-        } else {
-            text.setText(body);
-            mainLayout.add(text);
-        }
-    }
-
-    private boolean testActive(String text) {
-        return false;
+        text.setText(body);
+        mainLayout.add(text);
     }
 
 }

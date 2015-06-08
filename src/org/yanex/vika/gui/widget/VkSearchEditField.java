@@ -9,10 +9,12 @@ public class VkSearchEditField extends EditTextField implements GuiItem {
 
     private static final NinePatchBackground BACKGROUND = new NinePatchBackground(
             Files.LISTS_CONTACTS_SEARCHLINEINPUT);
-    private static Bitmap SEARCH = R.instance
+
+    private static final Bitmap SEARCH = R.instance
             .getBitmap("Lists/Contacts/SearchLineIcon.png");
 
     private static final int PADDING = DP2 * 3 / 4;
+    
     private static final Theme THEME = new Theme()
             .setPrimaryColor(0x000000)
             .setSecondaryFontColor(0x666666)

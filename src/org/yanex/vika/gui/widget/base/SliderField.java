@@ -9,8 +9,8 @@ import org.yanex.vika.gui.util.Theme;
 
 public class SliderField extends FocusableField implements FieldChangeListener {
 
-    public static interface SliderListener {
-        public void newPosition(float position);
+    public interface SliderListener {
+        void newPosition(float position);
     }
 
     private static final Theme theme = new Theme();
@@ -52,10 +52,6 @@ public class SliderField extends FocusableField implements FieldChangeListener {
         }
     }
 
-    public SliderListener getListener() {
-        return listener;
-    }
-
     public float getPosition() {
         return position;
     }
@@ -72,16 +68,8 @@ public class SliderField extends FocusableField implements FieldChangeListener {
         }
     }
 
-    public float getSecondaryPosition() {
-        return secondaryPosition;
-    }
-
     public boolean isFocusable() {
         return showSlider && super.isFocusable();
-    }
-
-    public boolean isShowSlider() {
-        return showSlider;
     }
 
     protected boolean navigationMovement(int dx, int dy, int status, int time) {
@@ -109,10 +97,6 @@ public class SliderField extends FocusableField implements FieldChangeListener {
     }
 
     protected void onFieldUnfocus() {
-        if (moving == true && showSlider && newPosition != position) {
-            // setPosition(newPosition);
-        }
-
         moving = false;
         updatePositionPx();
         invalidate();
@@ -135,7 +119,7 @@ public class SliderField extends FocusableField implements FieldChangeListener {
             if (positionPx > 0) {
                 SliderField.Line3.draw(g, new XYRect(m, y, positionPx, h));
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         if (isFocused() || isActive()) {

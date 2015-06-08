@@ -14,12 +14,12 @@ public abstract class FocusableField extends Field implements GuiItem {
     private boolean isActive = false;
 
     private boolean isFocusable = true;
-    private XYRect contentRect = new XYRect();
-    private XYRect borderRect = new XYRect();
 
-    private XYRect backgroundRect = new XYRect();
+    private final XYRect contentRect = new XYRect();
+    private final XYRect borderRect = new XYRect();
+    private final XYRect backgroundRect = new XYRect();
 
-    private Theme theme;
+    private final Theme theme;
 
     private int id;
 

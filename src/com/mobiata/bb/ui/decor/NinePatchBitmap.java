@@ -79,7 +79,6 @@ public class NinePatchBitmap {
   private Bitmap[] bitmapPatches;
   private XYRect stretchRect;
   private XYRect padRect;
-  private int options;
 
   protected boolean centerGradient = false;
   protected int gradientFromColor = 0;
@@ -102,7 +101,6 @@ public class NinePatchBitmap {
    */
   public NinePatchBitmap(Bitmap bmp, int options) {
     rawBitmap = bmp;
-    this.options = options;
     calculatePatches();
     bitmap = copyBitmapSection(rawBitmap, 1, 1, rawBitmap.getWidth() - 2, rawBitmap.getHeight() - 2);
 

@@ -9,16 +9,15 @@ import org.yanex.vika.gui.util.*;
 
 public class SongItem extends ListItem implements GuiItem {
 
-    private static final Background BACKGROUND_FOCUS =
-            new GradientBackground(0x59a0e8, 0x1c65be);
-
-    private static final Font FONT = Fonts.defaultFont;
+    private static final Background BACKGROUND_FOCUS = new GradientBackground(0x59a0e8, 0x1c65be);
 
     private static final Theme THEME = new Theme()
             .setPrimaryColor(0x000000)
             .setSecondaryFontColor(0xFFFFFF)
             .setPaddingEdges(DP2, DP2, DP2, DP2)
             .setBackground(null, BACKGROUND_FOCUS, BACKGROUND_FOCUS, null);
+
+    private static final Font FONT = Fonts.defaultFont;
 
     public final Audio audio;
     private final String text;

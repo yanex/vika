@@ -10,7 +10,6 @@ import org.yanex.vika.gui.screen.VkMainScreen;
 import org.yanex.vika.gui.widget.VkAudioAttachmentField;
 import org.yanex.vika.gui.widget.VkDocumentAttachmentField;
 import org.yanex.vika.gui.widget.VkPhotoAttachmentField;
-import org.yanex.vika.gui.widget.VkPhotoAttachmentField.PhotoAttachmentFieldListener;
 import org.yanex.vika.gui.widget.base.ButtonField;
 import org.yanex.vika.gui.widget.base.CustomLabelField;
 import org.yanex.vika.local.CountHelper;
@@ -20,8 +19,7 @@ import org.yanex.vika.util.fun.Function1;
 
 import java.util.Vector;
 
-public class MessageViewScreen extends VkMainScreen
-        implements PhotoAttachmentFieldListener, FieldChangeListener {
+public class MessageViewScreen extends VkMainScreen implements FieldChangeListener {
     private final Message message;
     private final MessageViewScreenGui gui;
 
@@ -74,7 +72,6 @@ public class MessageViewScreen extends VkMainScreen
 
         if (message.getGeo() != null) {
             VkPhotoAttachmentField item = new VkPhotoAttachmentField(new GeoAttachment(message));
-            item.setAttachmentListener(this);
             gui.mainLayout.add(item);
         }
 
@@ -98,10 +95,6 @@ public class MessageViewScreen extends VkMainScreen
         return false;
     }
 
-    public void onSizeChange(int newWidth, int newHeight) {
-
-    }
-
     public VkMainScreen show() {
         super.show();
         gui.photo.setURL(message.getUser().getPhotoURL());
@@ -114,8 +107,7 @@ public class MessageViewScreen extends VkMainScreen
             String ext = da.getExt().toLowerCase();
             if (da.getSize() < 1000 * 1000 &&
                     (ext.equals("png") || ext.equals("jpg") || ext.equals("gif"))) {
-                return new VkPhotoAttachmentField(da)
-                        .setAttachmentListener(MessageViewScreen.this);
+                return new VkPhotoAttachmentField(da);
             } else {
                 return new VkDocumentAttachmentField(da);
             }
@@ -130,15 +122,13 @@ public class MessageViewScreen extends VkMainScreen
 
     private final class VideoAttachmentTransformer implements Function1 {
         public Object apply(Object it) {
-            return new VkPhotoAttachmentField((VideoAttachment) it)
-                    .setAttachmentListener(MessageViewScreen.this);
+            return new VkPhotoAttachmentField((VideoAttachment) it);
         }
     }
 
     private final class PhotoAttachmentTransformer implements Function1 {
         public Object apply(Object it) {
-            return new VkPhotoAttachmentField((PhotoAttachment) it)
-                    .setAttachmentListener(MessageViewScreen.this);
+            return new VkPhotoAttachmentField((PhotoAttachment) it);
         }
     }
 

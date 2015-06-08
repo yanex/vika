@@ -39,18 +39,9 @@ public class MessagesAPI extends APIParser {
         ));
     }
 
-    public long delete(CaptchaInfo captcha, String mids) throws APIException {
-        return parseBulk(api.process(captcha, "messages.delete", Arguments.make()
+    public void delete(CaptchaInfo captcha, String mids) throws APIException {
+        parseBulk(api.process(captcha, "messages.delete", Arguments.make()
                         .put("message_ids", mids)
-        ));
-    }
-
-    public long deleteDialog(CaptchaInfo captcha, String uid, String chatId, int offset, int limit)
-            throws APIException {
-        return parseLong(api.process(captcha, "messages.deleteDialog", Arguments.make()
-                        .put("user_id", uid)
-                        .putIf(offset > 0, "offset", offset)
-                        .putIf(limit > 0, "count", limit)
         ));
     }
 
@@ -207,33 +198,8 @@ public class MessagesAPI extends APIParser {
         }
     }
 
-    public ActivityStatus getLastActivity(CaptchaInfo captcha, String uid) throws APIException {
-        String response = api.process(
-                captcha, "messages.getLastActivity", Arguments.with("user_id", uid));
-
-        try {
-            JSONObject jso = new JSONObject(response);
-            if (jso.has("response")) {
-                JSONObject o = jso.getJSONObject("response");
-                int online = o.getInt("online");
-                long time = o.getLong("time");
-
-                return new ActivityStatus(online == 1, time);
-            } else {
-                throw new APIException(jso);
-            }
-        } catch (JSONException e1) {
-            throw new APIException(ErrorCodes.JSON_ERROR);
-        }
-    }
-
     private String jsonEscape(String s) {
         return StringUtils.replace(s, "\"", "\\\"");
-    }
-
-    public long markAsNew(CaptchaInfo captcha, String mids) throws APIException {
-        return parseLong(api.process(
-                captcha, "messages.markAsNew", Arguments.with("message_ids", mids)));
     }
 
     public long markAsRead(CaptchaInfo captcha, String mids) throws APIException {
@@ -275,10 +241,6 @@ public class MessagesAPI extends APIParser {
                         .put("chat_id", chatId)
                         .put("user_id", userId)
         ));
-    }
-
-    public long restore(CaptchaInfo captcha, String mid) throws APIException {
-        return parseLong(api.process(captcha, "messages.restore", Arguments.with("message_id", mid)));
     }
 
     public Messages search(CaptchaInfo captcha, String q, int offset, int count)
@@ -376,10 +338,10 @@ public class MessagesAPI extends APIParser {
         ));
     }
 
-    public long setActivity(CaptchaInfo captcha, long uid, long chatId, String type)
+    public void setActivity(CaptchaInfo captcha, long uid, long chatId, String type)
             throws APIException {
         long id = (uid > 0) ? uid : APIUtils.getChatId(chatId);
-        return parseBulk(api.process(captcha, "messages.setActivity", Arguments.make()
+        parseBulk(api.process(captcha, "messages.setActivity", Arguments.make()
                         .putIf(uid != 0, "user_id", id)
                         .putIf(type != null, "type", type).putIf(type == null, "type", "typing")
         ));

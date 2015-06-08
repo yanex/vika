@@ -39,7 +39,7 @@ public class EditTextField extends EditField {
 
     private boolean displayingHint = false;
 
-    private XYRect borderRect = new XYRect();
+    private final XYRect borderRect = new XYRect();
 
     private EditListener listener;
 
@@ -158,25 +158,13 @@ public class EditTextField extends EditField {
         isFocused = false;
 
         text = getText();
-        if (text == null || text.length() == 0) {
-            displayingHint = true;
-            // setText(hint);
-        } else {
-            displayingHint = false;
-        }
+        displayingHint = text == null || text.length() == 0;
 
         invalidate();
     }
 
     protected void paint(Graphics g) {
         int oldColor = g.getColor();
-
-    /*
-     * if (displayingHint) g.setColor(theme.getSecondFontColor()); else
-     * g.setColor(theme.getFontColor());
-     * 
-     * super.paint(g);
-     */
 
         if (displayingHint) {
             g.setColor(theme.getSecondaryFontColor());
@@ -250,13 +238,7 @@ public class EditTextField extends EditField {
 
     public void setHint(String hint) {
         this.hint = hint;
-
-        if (text == null || text.length() == 0) {
-            displayingHint = true;
-            // setText(hint);
-        } else {
-            displayingHint = false;
-        }
+        displayingHint = text == null || text.length() == 0;
     }
 
     public void setListener(EditListener listener) {

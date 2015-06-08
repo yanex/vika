@@ -426,7 +426,7 @@ public class ConversationScreen extends VkMainScreen implements ListListener {
                     hasMapAttach = true;
                     PendingLocation pl = (PendingLocation) o;
                     AutoLoadingFocusableBitmapField alb = new AutoLoadingFocusableBitmapField(DP16
-                            + px1 * 4, DP16 + px1 * 4, 0, true, Bitmap.SCALE_TO_FILL, 1, 4,
+                            + px1 * 4, DP16 + px1 * 4, 0, Bitmap.SCALE_TO_FILL, 1, 4,
                             ConversationScreenGui.ATTACHMENT_ADD_THEME);
                     alb.setURL(GoogleMaps.getThumb(pl.getLatitude(), pl.getLongitude()));
                     // alb.setPadding(px1, px1, px1, px1);
@@ -436,7 +436,7 @@ public class ConversationScreen extends VkMainScreen implements ListListener {
                 } else if (o instanceof PendingPhoto) {
                     PendingPhoto pp = (PendingPhoto) o;
                     AutoLoadingFocusableBitmapField alb = new AutoLoadingFocusableBitmapField(DP16
-                            + px1 * 4, DP16 + px1 * 4, 0, true, Bitmap.SCALE_TO_FILL, 4, 4,
+                            + px1 * 4, DP16 + px1 * 4, 0, Bitmap.SCALE_TO_FILL, 4, 4,
                             ConversationScreenGui.ATTACHMENT_ADD_THEME);
                     alb.setURL(pp.filename);
                     alb.setMargin(px2, px2, px2, px2);
@@ -459,13 +459,13 @@ public class ConversationScreen extends VkMainScreen implements ListListener {
             Bitmap _photo = R.instance.getBitmap("Convs/Attaches/Photo.png");
 
             AutoLoadingFocusableBitmapField camera = new AutoLoadingFocusableBitmapField(DP16,
-                    DP16, 0, true, Bitmap.SCALE_TO_FIT, 0, -1,
+                    DP16, 0, Bitmap.SCALE_TO_FIT, 0, -1,
                     ConversationScreenGui.ATTACHMENT_ADD_THEME);
             AutoLoadingFocusableBitmapField map = new AutoLoadingFocusableBitmapField(DP16,
-                    DP16, 0, true, Bitmap.SCALE_TO_FIT, 0, -1,
+                    DP16, 0, Bitmap.SCALE_TO_FIT, 0, -1,
                     ConversationScreenGui.ATTACHMENT_ADD_THEME);
             AutoLoadingFocusableBitmapField photo = new AutoLoadingFocusableBitmapField(DP16,
-                    DP16, 0, true, Bitmap.SCALE_TO_FIT, 0, -1,
+                    DP16, 0, Bitmap.SCALE_TO_FIT, 0, -1,
                     ConversationScreenGui.ATTACHMENT_ADD_THEME);
 
             camera.setPadding(px1, px1, px1, px1);
@@ -696,9 +696,8 @@ public class ConversationScreen extends VkMainScreen implements ListListener {
                 public void after(Object result) {
                     dialog.dismiss();
                     Pair p = (Pair) result;
-                    RichVector m = (RichVector) p.first, listItems = (RichVector) p.second;
-
-                    currentItems = m;
+                    RichVector listItems = (RichVector) p.second;
+                    currentItems = (RichVector) p.first;
 
                     if (Configuration.DEBUG) {
                         Vika.log(listItems.toString());

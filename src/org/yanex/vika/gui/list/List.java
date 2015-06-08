@@ -12,15 +12,12 @@ import org.yanex.vika.gui.widget.base.SeparatorField;
 
 import java.util.Vector;
 
-public class List extends VerticalFieldManager implements FieldChangeListener, ItemPaintListener,
-        ItemListener {
+public class List extends VerticalFieldManager implements FieldChangeListener, ItemPaintListener, ItemListener {
 
-    public static interface ListListener {
-        public void itemClick(int id, AbstractListItem item);
-
-        public void loadNextPage(int already);
-
-        public void specialPaint(int id, AbstractListItem item);
+    public interface ListListener {
+        void itemClick(int id, AbstractListItem item);
+        void loadNextPage(int already);
+        void specialPaint(int id, AbstractListItem item);
     }
 
     public static final int MODE_NORMAL = 0;
@@ -53,8 +50,6 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
 
     private int itemsCount = 0;
 
-    private boolean hotkeysEnabled = true;
-
     private ListListener listener;
 
     private VkMainScreen owner;
@@ -67,10 +62,6 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
         this.mode = mode;
     }
 
-    public List(long style) {
-        super(style);
-    }
-
     protected void addAll(Vector fields) {
         Field[] a = new Field[fields.size()];
         fields.copyInto(a);
@@ -79,7 +70,6 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
 
     public void appendItems(Vector items) {
         if (allItems == null) {
-      /* allItems = new Vector(); */
             return;
         }
 
@@ -92,8 +82,7 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
     protected void appendItems(Vector items, int _addCount) {
         int addCount = ITEMS_PER_PAGE, i;
 
-        Vector willBeAdded = new Vector(); // Math.max(_addCount,
-        // ITEMS_PER_PAGE));
+        Vector willBeAdded = new Vector();
 
         if (itemsCount > 0 && items.size() > 0) {
             SeparatorField sep = new SeparatorField(separatorHeight, separatorColor);
@@ -241,11 +230,6 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
         }
         deleteAll();
         addAll(displayingItems);
-    /*
-     * synchronized (UiApplication.getEventLock()) { for (int k=willBeAdded.size()-1; k>=0; --k) {
-     * insert((Field)willBeAdded.elementAt(k), 0); } }
-     */
-        // addAll(willBeAdded);
 
         if (mode == List.MODE_INVERT) {
             setInvertNextPageListener();
@@ -291,24 +275,8 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
         return itemsCount;
     }
 
-    public VkMainScreen getOwner() {
-        return owner;
-    }
-
     public int getRealItemId(int id) {
         return id * 2;
-    }
-
-    public int getSeparatorColor() {
-        return separatorColor;
-    }
-
-    public int getSeparatorHeight() {
-        return separatorHeight;
-    }
-
-    public boolean isHotkeysEnabled() {
-        return hotkeysEnabled;
     }
 
     public void itemClick(int id, AbstractListItem item) {
@@ -318,14 +286,12 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
     }
 
     protected boolean keyChar(char ch, int status, int time) {
-        if (hotkeysEnabled) {
-            if (ch == 'T' || ch == 't' || ch == 'Н' || ch == 'н') {
-                selectFirst();
-            } else if (ch == 'B' || ch == 'b' || ch == 'т' || ch == 'Т') {
-                selectLast();
-            } else if (ch == ' ') {
-                scrollOnePageDown();
-            }
+        if (ch == 'T' || ch == 't' || ch == 'Н' || ch == 'н') {
+            selectFirst();
+        } else if (ch == 'B' || ch == 'b' || ch == 'т' || ch == 'Т') {
+            selectLast();
+        } else if (ch == ' ') {
+            scrollOnePageDown();
         }
 
         return super.keyChar(ch, status, time);
@@ -475,34 +441,6 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
         }
     }
 
-    public void removeItem(int id) {
-        if (id < 0 || id > itemsCount) {
-            return;
-        }
-
-        int realId = getRealItemId(id);
-        if (id < itemsCount - 1) {
-            Field f = getField(realId);
-            f.setChangeListener(null);
-            delete(f);
-        } else {
-            Field f = getField(realId);
-            f.setChangeListener(null);
-            deleteRange(realId, 2);
-        }
-    }
-
-    public void replaceChild(AbstractListItem l1, AbstractListItem l2) {
-        Field f1 = (Field) l1;
-        Field f2 = (Field) l2;
-
-        l2.setId(l1.getId());
-        l2.setItemListener(l1.getItemListener());
-        l2.setItemPaintListener(l1.getItemPaintListener());
-
-        replace(f1, f2);
-    }
-
     public void scrollOnePageDown() {
         owner.scrollLayout(Manager.DOWNWARD);
     }
@@ -515,14 +453,6 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public void scrollToTop() {
-        try {
-            owner.getMainManager().setVerticalScroll(0);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -550,24 +480,12 @@ public class List extends VerticalFieldManager implements FieldChangeListener, I
         setScrollingInertial(true);
     }
 
-    public void setFeedback(ListFeedback feedback) {
-        this.feedback = feedback;
-    }
-
     public void setFocus() {
         if (getFieldCount() > 0) {
             getField(0).setFocus();
         } else {
             super.setFocus();
         }
-    }
-
-    public void setHotkeysEnabled(boolean hotkeysEnabled) {
-        this.hotkeysEnabled = hotkeysEnabled;
-    }
-
-    public void setInertial(boolean isInertial) {
-        setScrollingInertial(isInertial);
     }
 
     private void setInvertNextPageListener() {

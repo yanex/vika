@@ -17,8 +17,8 @@ public class UserStorage {
 
     private static final long KEY = 0x1d065c7bcc022916L;
 
-    private PersistentObject userPO;
-    private LongHashtable user;
+    private final PersistentObject userPO;
+    private final LongHashtable user;
 
     public static final UserStorage instance = new UserStorage();
 

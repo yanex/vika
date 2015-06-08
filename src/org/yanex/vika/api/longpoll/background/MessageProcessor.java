@@ -30,15 +30,14 @@ public class MessageProcessor implements LongPollProcessor {
         final String realUid = APIUtils.getTalkId(fromId);
         final Object displayedUid = ConversationScreen.OPENTALKS.get(realUid);
 
-        if (displayedUid == null) { // opened conversation will handle this by itself
-            // if already added
+        if (displayedUid == null) { // opened conversation will handle this by itself if already added
             if (updateConversation(realUid, message)) {
                 return false;
             }
 
             if (message.getUser() != null) {
-                boolean found = false, lastDialog = false;
-                Message foundDialog = null;
+                boolean found = false;
+                Message foundDialog;
                 RichVector dialogs = MessagesStorage.instance.get(MessagesStorage.DIALOGS).copy();
 
                 for (int i = 0; i < dialogs.size(); ++i) {
@@ -49,9 +48,6 @@ public class MessageProcessor implements LongPollProcessor {
                         if (i > 0) {
                             dialogs.removeElementAt(i);
                             dialogs.insertElementAt(foundDialog, 0);
-                            lastDialog = false;
-                        } else {
-                            lastDialog = true;
                         }
                         break;
                     }

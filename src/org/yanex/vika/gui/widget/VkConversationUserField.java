@@ -11,12 +11,12 @@ public class VkConversationUserField extends Field {
     private String name;
     private String status;
 
-    private static int INTERVAL = R.px(2);
+    private static final int INTERVAL = R.px(2);
 
     private int nameWidth;
     private int statusWidth;
-    private int nameHeight = VkConversationUserField.fName.getHeight();
-    private int statusHeight = VkConversationUserField.fStatus.getHeight();
+    private final int nameHeight = VkConversationUserField.fName.getHeight();
+    private final int statusHeight = VkConversationUserField.fStatus.getHeight();
 
     private static final Font fName = Fonts.bold(7);
     private static final Font fStatus = Fonts.bold(6);

@@ -28,12 +28,9 @@ public class UserScreenGui extends ScreenGui {
     private static final Background
             BACKGROUND = BackgroundFactory.createBitmapBackground
             (R.instance.getBitmap(Files.DARK_BG)),
-            BACKGROUND_REGISTER_FOCUS =
-                    new NinePatchBackground(Files.DARK_RED_BUTTON_FOCUS),
-            BACKGROUND_REGISTER_ACTIVE =
-                    new NinePatchBackground(Files.DARK_RED_BUTTON_FOCUS_PUSHED),
-            BACKGROUND_PHOTO_DEFAULT =
-                    new NinePatchBackground(Files.DARK_PHOTO_HOLDER);
+            BACKGROUND_REGISTER_FOCUS = new NinePatchBackground(Files.DARK_RED_BUTTON_FOCUS),
+            BACKGROUND_REGISTER_ACTIVE = new NinePatchBackground(Files.DARK_RED_BUTTON_FOCUS_PUSHED),
+            BACKGROUND_PHOTO_DEFAULT = new NinePatchBackground(Files.DARK_PHOTO_HOLDER);
 
     private static final Theme THEME_REGISTER = new Theme()
             .setPrimaryColor(0xEEEEEE)
@@ -41,8 +38,7 @@ public class UserScreenGui extends ScreenGui {
             .setBackground(null, BACKGROUND_REGISTER_FOCUS, BACKGROUND_REGISTER_ACTIVE, null);
 
     private static final Theme THEME_IMAGE = new Theme()
-            .setBackground(BACKGROUND_PHOTO_DEFAULT, BACKGROUND_PHOTO_DEFAULT, BACKGROUND_PHOTO_DEFAULT,
-                    null)
+            .setBackground(BACKGROUND_PHOTO_DEFAULT, BACKGROUND_PHOTO_DEFAULT, BACKGROUND_PHOTO_DEFAULT, null)
             .setPaddingEdges(DP2, DP2, DP2, DP2);
 
     private final VkMainScreen screen;
@@ -67,19 +63,16 @@ public class UserScreenGui extends ScreenGui {
         addToFriends = new VkButtonField(tr(VikaResource.Add_to_friends), FIELD_HCENTER);
         addToFriends.setFont(FONT);
 
-        rejectRequest = new ButtonField(
-                tr(VikaResource.Decline_request), FIELD_HCENTER, THEME_REGISTER);
+        rejectRequest = new ButtonField(tr(VikaResource.Decline_request), FIELD_HCENTER, THEME_REGISTER);
         rejectRequest.setFont(FONT);
 
-        cancelRequest = new VkButtonField(
-                tr(VikaResource.Cancel_request), FIELD_HCENTER);
+        cancelRequest = new VkButtonField(tr(VikaResource.Cancel_request), FIELD_HCENTER);
         cancelRequest.setFont(FONT);
 
         sendMessage = new VkButtonField(tr(VikaResource.Send_message), FIELD_HCENTER);
         sendMessage.setFont(FONT);
 
-        deleteFriend = new ButtonField(
-                tr(VikaResource.Remove_from_friends), FIELD_HCENTER, THEME_REGISTER);
+        deleteFriend = new ButtonField(tr(VikaResource.Remove_from_friends), FIELD_HCENTER, THEME_REGISTER);
         deleteFriend.setFont(FONT);
     }
 

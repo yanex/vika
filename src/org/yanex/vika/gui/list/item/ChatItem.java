@@ -16,8 +16,7 @@ import org.yanex.vika.util.network.State;
 
 public class ChatItem extends ListItem implements SeveralImageLoaderCallback {
 
-    private static final Background BACKGROUND_FOCUS =
-            new GradientBackground(0x59a0e8, 0x1c65be);
+    private static final Background BACKGROUND_FOCUS = new GradientBackground(0x59a0e8, 0x1c65be);
 
     private final AbstractBitmapField PHOTO_DEFAULT = new AbstractBitmapField(
             R.instance.getBitmap("camera.png"), PHOTO_SIZE, true, true);

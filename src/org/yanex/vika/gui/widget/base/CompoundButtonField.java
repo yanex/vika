@@ -21,15 +21,13 @@ public class CompoundButtonField extends FocusableHFM {
 
     private static final Theme LABEL_THEME = new Theme().setPrimaryColor(0xffffff);
 
-    private final BitmapField bitmap;
-
     public CompoundButtonField(String text, Bitmap b) {
         super(0, CompoundButtonField.THEME);
 
         VerticalFieldManager vfm = new VerticalFieldManager();
         vfm.setPadding(DP2, DP2, DP2, DP2);
 
-        bitmap = new BitmapField(b, Field.FIELD_HCENTER);
+        BitmapField bitmap = new BitmapField(b, Field.FIELD_HCENTER);
         vfm.add(bitmap);
 
         String[] lines = StringUtils.split(text, "\n");
@@ -47,10 +45,6 @@ public class CompoundButtonField extends FocusableHFM {
 
     public void fieldChanged(Field field, int context) {
         getChangeListener().fieldChanged(this, context);
-    }
-
-    public void setFixedWidth(int width) {
-        insert(new HorizontalSpacerField(width), 1);
     }
 
 }

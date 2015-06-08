@@ -42,10 +42,6 @@ class UserSelectScreen extends VkMainScreen implements ListListener {
         add(allFriendsList);
     }
 
-    public UserSelectListener getListener() {
-        return listener;
-    }
-
     public void itemClick(int id, AbstractListItem item) {
         close();
         if (item instanceof UserItem) {
@@ -155,8 +151,8 @@ class UserSelectScreen extends VkMainScreen implements ListListener {
         }.start();
     }
 
-    static interface UserSelectListener {
-        public void onUserSelect(User user);
+    interface UserSelectListener {
+        void onUserSelect(User user);
     }
 
 }

@@ -32,7 +32,6 @@ public class FileItem extends ComplexListItem implements GuiItem {
 
     private final FileSystemObject fso;
 
-    private final HorizontalFieldManager hfm;
     private final CustomLabelField label;
     private final ImageField icon;
 
@@ -51,7 +50,7 @@ public class FileItem extends ComplexListItem implements GuiItem {
                 DrawStyle.ELLIPSIS | Field.FIELD_VCENTER, THEME);
         icon = new ImageField(bitmapNormal, DP12, DP12, Field.FIELD_VCENTER, false);
 
-        hfm = new HorizontalFieldManager();
+        HorizontalFieldManager hfm = new HorizontalFieldManager();
         hfm.add(icon);
         hfm.add(label);
         add(hfm);

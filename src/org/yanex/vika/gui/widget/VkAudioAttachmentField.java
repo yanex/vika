@@ -77,15 +77,12 @@ public class VkAudioAttachmentField extends HorizontalFieldManager implements Fi
         BUTTON_THEME = new Theme();
     }
 
-    private AudioAttachment attachment;
+    private final AudioAttachment attachment;
+    private final CustomImageButton button;
+    private final SliderField slider;
+
     private boolean isPlaying = false;
-
     private boolean launched = false;
-    private CustomImageButton button;
-    private CustomLabelField performer;
-    private CustomLabelField title;
-
-    private SliderField slider;
 
     private static int lastWidth = -1;
 
@@ -101,9 +98,9 @@ public class VkAudioAttachmentField extends HorizontalFieldManager implements Fi
         button.setMargin(0, R.px(2), 0, 0);
         button.setChangeListener(this);
 
-        performer = new CustomLabelField(attachment.getPerformer(), 0, blackTheme);
+        CustomLabelField performer = new CustomLabelField(attachment.getPerformer(), 0, blackTheme);
         performer.setFont(Fonts.defaultBold);
-        title = new CustomLabelField(attachment.getTitle(), 0, blackTheme);
+        CustomLabelField title = new CustomLabelField(attachment.getTitle(), 0, blackTheme);
 
         slider = new SliderField(0, 0);
         slider.setListener(this);
@@ -163,9 +160,7 @@ public class VkAudioAttachmentField extends HorizontalFieldManager implements Fi
                 button.updateState();
                 break;
             case AudioListener.POSITION:
-                float d = duration,
-                        p = position;
-                slider.setPosition(p / d);
+                slider.setPosition((float) position / (float) duration);
                 break;
             case AudioListener.PAUSE:
                 break;

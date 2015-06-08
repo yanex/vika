@@ -16,7 +16,7 @@ import org.yanex.vika.util.fun.RichVector;
 
 import java.util.Vector;
 
-public class APIParser {
+class APIParser {
 
     protected long parseLong(String response) throws APIException {
         try {
@@ -26,10 +26,8 @@ public class APIParser {
         }
     }
 
-    protected long parseBulk(String response) throws APIException {
-        if (parse(response) != null) {
-            return 1;
-        } else {
+    protected void parseBulk(String response) throws APIException {
+        if (parse(response) == null) {
             throw new APIException(ErrorCodes.JSON_ERROR);
         }
     }
@@ -70,7 +68,7 @@ public class APIParser {
         return parse(response);
     }
 
-    protected JSONArray parseArray(String response) throws JSONException {
+    private JSONArray parseArray(String response) throws JSONException {
         JSONObject root = new JSONObject(response);
         return parseArray(root.get("response"));
     }
