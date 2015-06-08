@@ -6,37 +6,37 @@ import net.rim.device.api.ui.component.BitmapField;
 
 public class FocusableBitmapField extends BitmapField {
 
-  private boolean disableFocusOnLost = true;
-  private boolean focusable = true;
+    private boolean disableFocusOnLost = true;
+    private boolean focusable = true;
 
-  public FocusableBitmapField() {
+    public FocusableBitmapField() {
 
-  }
-
-  public FocusableBitmapField(Bitmap bitmap, long style) {
-    super(bitmap, style);
-  }
-
-  protected void drawFocus(Graphics g, boolean on) {
-
-  }
-
-  public boolean isDisableFocusOnLost() {
-    return disableFocusOnLost;
-  }
-
-  public boolean isFocusable() {
-    return focusable;
-  }
-
-  protected void onUnfocus() {
-    super.onUnfocus();
-    if (disableFocusOnLost) {
-      focusable = false;
     }
-  }
 
-  public void setDisableFocusOnLost(boolean disableFocusOnLost) {
-    this.disableFocusOnLost = disableFocusOnLost;
-  }
+    public FocusableBitmapField(Bitmap bitmap, long style) {
+        super(bitmap, style);
+    }
+
+    protected void drawFocus(Graphics g, boolean on) {
+
+    }
+
+    public boolean isDisableFocusOnLost() {
+        return disableFocusOnLost;
+    }
+
+    public boolean isFocusable() {
+        return focusable;
+    }
+
+    protected void onUnfocus() {
+        super.onUnfocus();
+        if (disableFocusOnLost) {
+            focusable = false;
+        }
+    }
+
+    public void setDisableFocusOnLost(boolean disableFocusOnLost) {
+        this.disableFocusOnLost = disableFocusOnLost;
+    }
 }

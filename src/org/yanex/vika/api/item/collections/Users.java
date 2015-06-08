@@ -8,16 +8,16 @@ import java.util.Vector;
 
 public class Users extends ImmutableList implements Persistable {
 
-  public Users() {
-    super(EMPTY_VECTOR, User.class);
-  }
+    public Users() {
+        super(EMPTY_VECTOR, User.class);
+    }
 
-  public Users(Vector vector) {
-    super(vector, User.class);
-  }
+    public Users(Vector vector) {
+        super(vector, User.class);
+    }
 
-  public User get(int index) {
-    return (User) getObject(index);
-  }
+    public User get(int index) {
+        return (User) getObject(index);
+    }
 
 }

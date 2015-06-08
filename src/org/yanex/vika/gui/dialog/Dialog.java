@@ -8,33 +8,33 @@ import org.yanex.vika.local.Local;
 
 public abstract class Dialog extends Screen implements GuiItem {
 
-  private static final char CODE_BACK = 27;
+    private static final char CODE_BACK = 27;
 
-  public Dialog(Manager delegate) {
-    super(delegate);
-  }
-
-  public static String tr(int key) {
-    return Local.tr(key);
-  }
-
-  protected void dismiss() {
-    if (isVisible()) {
-      this.close();
+    public Dialog(Manager delegate) {
+        super(delegate);
     }
-  }
 
-  protected boolean keyChar(char c, int status, int time) {
-    if (c == CODE_BACK) {
-      dismiss();
-      return true;
-    } else return super.keyChar(c, status, time);
-  }
-
-  public void show() {
-    if (!isVisible()) {
-      UiApplication.getUiApplication().pushModalScreen(this);
+    public static String tr(int key) {
+        return Local.tr(key);
     }
-  }
+
+    protected void dismiss() {
+        if (isVisible()) {
+            this.close();
+        }
+    }
+
+    protected boolean keyChar(char c, int status, int time) {
+        if (c == CODE_BACK) {
+            dismiss();
+            return true;
+        } else return super.keyChar(c, status, time);
+    }
+
+    public void show() {
+        if (!isVisible()) {
+            UiApplication.getUiApplication().pushModalScreen(this);
+        }
+    }
 
 }

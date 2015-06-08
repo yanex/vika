@@ -16,55 +16,55 @@ import org.yanex.vika.util.bb.Blackberry;
 
 public class VkDocumentAttachmentField extends ImageTextButtonField implements FieldChangeListener {
 
-  private static final Theme theme;
+    private static final Theme theme;
 
-  private static final Bitmap IMAGE = R.instance.getBitmap("Convs/DocIcon.png");
+    private static final Bitmap IMAGE = R.instance.getBitmap("Convs/DocIcon.png");
 
-  private int forceWidth = -1;
+    private int forceWidth = -1;
 
-  static {
-    theme = new Theme();
-    VkDocumentAttachmentField.theme.setPrimaryColor(0xFFFFFF);
-    VkDocumentAttachmentField.theme.setSecondaryFontColor(0xFFFFFF);
+    static {
+        theme = new Theme();
+        VkDocumentAttachmentField.theme.setPrimaryColor(0xFFFFFF);
+        VkDocumentAttachmentField.theme.setSecondaryFontColor(0xFFFFFF);
 
-    Background defaultBackground = new NinePatchBackground("Convs/DocBg.png");
-    Background focusBackground = new NinePatchBackground("Convs/DocBgFocus.png");
+        Background defaultBackground = new NinePatchBackground("Convs/DocBg.png");
+        Background focusBackground = new NinePatchBackground("Convs/DocBgFocus.png");
 
-    VkDocumentAttachmentField.theme.setBackground(defaultBackground, focusBackground,
-        focusBackground, null);
+        VkDocumentAttachmentField.theme.setBackground(defaultBackground, focusBackground,
+                focusBackground, null);
 
-    VkDocumentAttachmentField.theme.setPaddingEdges(DP2, DP2, DP2, DP2);
-  }
-
-  private DocumentAttachment attachment;
-
-  public VkDocumentAttachmentField(DocumentAttachment attachment) {
-    super(attachment.getTitle(), VkDocumentAttachmentField.IMAGE, Field.FIELD_HCENTER,
-        VkDocumentAttachmentField.theme);
-    this.attachment = attachment;
-    setChangeListener(this);
-  }
-
-  public void fieldChanged(Field f, int arg1) {
-    if (!Blackberry.launch(attachment.getUrl())) {
-      Dialog.alert(VkMainScreen.tr(VikaResource.UNABLE_TO_OPEN_ATTACHMENT));
+        VkDocumentAttachmentField.theme.setPaddingEdges(DP2, DP2, DP2, DP2);
     }
-  }
 
-  public int getForceWidth() {
-    return forceWidth;
-  }
+    private DocumentAttachment attachment;
 
-  public int getPreferredWidth() {
-    if (forceWidth > 0) {
-      return forceWidth;
-    } else {
-      return super.getPreferredWidth();
+    public VkDocumentAttachmentField(DocumentAttachment attachment) {
+        super(attachment.getTitle(), VkDocumentAttachmentField.IMAGE, Field.FIELD_HCENTER,
+                VkDocumentAttachmentField.theme);
+        this.attachment = attachment;
+        setChangeListener(this);
     }
-  }
 
-  public void setForceWidth(int forceWidth) {
-    this.forceWidth = forceWidth;
-  }
+    public void fieldChanged(Field f, int arg1) {
+        if (!Blackberry.launch(attachment.getUrl())) {
+            Dialog.alert(VkMainScreen.tr(VikaResource.UNABLE_TO_OPEN_ATTACHMENT));
+        }
+    }
+
+    public int getForceWidth() {
+        return forceWidth;
+    }
+
+    public int getPreferredWidth() {
+        if (forceWidth > 0) {
+            return forceWidth;
+        } else {
+            return super.getPreferredWidth();
+        }
+    }
+
+    public void setForceWidth(int forceWidth) {
+        this.forceWidth = forceWidth;
+    }
 
 }

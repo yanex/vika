@@ -4,36 +4,38 @@ import net.rim.device.api.ui.UiApplication;
 
 public abstract class ThreadHelper {
 
-  public abstract Object task();
+    public abstract Object task();
 
-  public abstract void after(Object o);
+    public abstract void after(Object o);
 
-  public void before() {}
+    public void before() {
+    }
 
-  public void error() {}
+    public void error() {
+    }
 
-  public void start() {
-    before();
+    public void start() {
+        before();
 
-    new Thread() {
-      public void run() {
-        invokeonUIThread(task());
-      }
+        new Thread() {
+            public void run() {
+                invokeonUIThread(task());
+            }
 
-    }.start();
-  }
+        }.start();
+    }
 
-  private void invokeonUIThread(final Object o) {
-    UiApplication.getUiApplication().invokeLater(new Runnable() {
+    private void invokeonUIThread(final Object o) {
+        UiApplication.getUiApplication().invokeLater(new Runnable() {
 
-      public void run() {
-        if (o != null) {
-          after(o);
-        } else {
-          error();
-        }
-      }
-    });
-  }
+            public void run() {
+                if (o != null) {
+                    after(o);
+                } else {
+                    error();
+                }
+            }
+        });
+    }
 
 }

@@ -4,7 +4,8 @@ import org.yanex.vika.api.item.Message;
 
 public abstract class MessageUpdate implements LongPollUpdate {
 
-  public abstract Message genMessage();
-  public abstract long getFromId();
+    public abstract Message genMessage();
+
+    public abstract long getFromId();
 
 }

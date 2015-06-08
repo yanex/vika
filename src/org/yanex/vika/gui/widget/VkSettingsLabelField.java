@@ -8,13 +8,13 @@ import org.yanex.vika.gui.widget.base.CustomLabelField;
 
 public class VkSettingsLabelField extends CustomLabelField {
 
-  private static final Theme THEME = new Theme().setPrimaryColor(0x666666);
+    private static final Theme THEME = new Theme().setPrimaryColor(0x666666);
 
-  public VkSettingsLabelField(String label) {
-    super(label, Field.USE_ALL_WIDTH | DrawStyle.HCENTER, VkSettingsLabelField.THEME);
-    setMargin(CustomLabelField.px(4), CustomLabelField.px(5), CustomLabelField.px(4),
-        CustomLabelField.px(5));
-    setFont(Fonts.narrow(7));
-  }
+    public VkSettingsLabelField(String label) {
+        super(label, Field.USE_ALL_WIDTH | DrawStyle.HCENTER, VkSettingsLabelField.THEME);
+        setMargin(CustomLabelField.px(4), CustomLabelField.px(5), CustomLabelField.px(4),
+                CustomLabelField.px(5));
+        setFont(Fonts.narrow(7));
+    }
 
 }

@@ -13,70 +13,70 @@ import org.yanex.vika.util.fun.RichVector;
 
 final class UsersChatsConverter {
 
-  static RichVector users(Users userVector) {
-    final RichVector listItems = new RichVector();
+    static RichVector users(Users userVector) {
+        final RichVector listItems = new RichVector();
 
-    for (int i = 0; i < userVector.size(); ++i) {
-      Object o = userVector.getObject(i);
-      if (o instanceof User) {
-        listItems.addElement(new UserItem(userVector.get(i)));
-      }
-    }
-
-    return listItems;
-  }
-
-  static RichVector sortedUsers(Users users) {
-    final RichVector listItems = new RichVector();
-    char last = ' ';
-
-    SimpleSortingVector v = new SimpleSortingVector();
-    v.setSortComparator(new Comparator() {
-
-      public int compare(Object o1, Object o2) {
-        if (o1 instanceof User && o2 instanceof User) {
-          return ((User) o1).getFullName().compareTo(((User) o2).getFullName());
-        } else {
-          return 0;
-        }
-      }
-    });
-
-    for (int i = 0; i < users.size(); ++i) {
-      v.addElement(users.getObject(i));
-    }
-
-    v.reSort();
-
-    for (int i = 0; i < v.size(); ++i) {
-      if (v.elementAt(i) instanceof User) {
-        User u = (User) v.elementAt(i);
-        char c = u.getFullName().charAt(0);
-        if (c != last) {
-          listItems.addElement(new SeparatorItem(c + ""));
-          last = c;
+        for (int i = 0; i < userVector.size(); ++i) {
+            Object o = userVector.getObject(i);
+            if (o instanceof User) {
+                listItems.addElement(new UserItem(userVector.get(i)));
+            }
         }
 
-        listItems.addElement(new UserItem(u));
-      }
+        return listItems;
     }
 
-    return listItems;
-  }
+    static RichVector sortedUsers(Users users) {
+        final RichVector listItems = new RichVector();
+        char last = ' ';
 
-  static RichVector usersChats(UsersChats userVector) {
-    final RichVector listItems = new RichVector();
+        SimpleSortingVector v = new SimpleSortingVector();
+        v.setSortComparator(new Comparator() {
 
-    for (int i = 0; i < userVector.size(); ++i) {
-      Object o = userVector.getObject(i);
-      if (o instanceof User) {
-        listItems.addElement(new UserItem((User) o));
-      } else if (o instanceof Chat) {
-        listItems.addElement(new ChatItem((Chat) o));
-      }
+            public int compare(Object o1, Object o2) {
+                if (o1 instanceof User && o2 instanceof User) {
+                    return ((User) o1).getFullName().compareTo(((User) o2).getFullName());
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        for (int i = 0; i < users.size(); ++i) {
+            v.addElement(users.getObject(i));
+        }
+
+        v.reSort();
+
+        for (int i = 0; i < v.size(); ++i) {
+            if (v.elementAt(i) instanceof User) {
+                User u = (User) v.elementAt(i);
+                char c = u.getFullName().charAt(0);
+                if (c != last) {
+                    listItems.addElement(new SeparatorItem(c + ""));
+                    last = c;
+                }
+
+                listItems.addElement(new UserItem(u));
+            }
+        }
+
+        return listItems;
     }
 
-    return listItems;
-  }
+    static RichVector usersChats(UsersChats userVector) {
+        final RichVector listItems = new RichVector();
+
+        for (int i = 0; i < userVector.size(); ++i) {
+            Object o = userVector.getObject(i);
+            if (o instanceof User) {
+                listItems.addElement(new UserItem((User) o));
+            } else if (o instanceof Chat) {
+                listItems.addElement(new ChatItem((Chat) o));
+            }
+        }
+
+        return listItems;
+    }
 
 }

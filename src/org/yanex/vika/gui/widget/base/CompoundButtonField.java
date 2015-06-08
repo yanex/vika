@@ -13,44 +13,44 @@ import org.yanex.vika.util.StringUtils;
 
 public class CompoundButtonField extends FocusableHFM {
 
-  private static final Background BACKGROUND_FOCUS =
-      new NinePatchBackground("Convs/AttachesMenu/FocusBg.png");
+    private static final Background BACKGROUND_FOCUS =
+            new NinePatchBackground("Convs/AttachesMenu/FocusBg.png");
 
-  private static final Theme THEME = new Theme()
-      .setBackground(null, BACKGROUND_FOCUS, BACKGROUND_FOCUS, null);
+    private static final Theme THEME = new Theme()
+            .setBackground(null, BACKGROUND_FOCUS, BACKGROUND_FOCUS, null);
 
-  private static final Theme LABEL_THEME = new Theme().setPrimaryColor(0xffffff);
+    private static final Theme LABEL_THEME = new Theme().setPrimaryColor(0xffffff);
 
-  private final BitmapField bitmap;
+    private final BitmapField bitmap;
 
-  public CompoundButtonField(String text, Bitmap b) {
-    super(0, CompoundButtonField.THEME);
+    public CompoundButtonField(String text, Bitmap b) {
+        super(0, CompoundButtonField.THEME);
 
-    VerticalFieldManager vfm = new VerticalFieldManager();
-    vfm.setPadding(DP2, DP2, DP2, DP2);
+        VerticalFieldManager vfm = new VerticalFieldManager();
+        vfm.setPadding(DP2, DP2, DP2, DP2);
 
-    bitmap = new BitmapField(b, Field.FIELD_HCENTER);
-    vfm.add(bitmap);
+        bitmap = new BitmapField(b, Field.FIELD_HCENTER);
+        vfm.add(bitmap);
 
-    String[] lines = StringUtils.split(text, "\n");
-    for (int i = 0; i < lines.length; ++i) {
-      CustomLabelField label = new CustomLabelField(lines[i],
-          DrawStyle.HCENTER | Field.FIELD_HCENTER,
-          CompoundButtonField.LABEL_THEME);
-      vfm.add(label);
+        String[] lines = StringUtils.split(text, "\n");
+        for (int i = 0; i < lines.length; ++i) {
+            CustomLabelField label = new CustomLabelField(lines[i],
+                    DrawStyle.HCENTER | Field.FIELD_HCENTER,
+                    CompoundButtonField.LABEL_THEME);
+            vfm.add(label);
+        }
+
+        add(vfm);
+
+        addingCompleted();
     }
 
-    add(vfm);
+    public void fieldChanged(Field field, int context) {
+        getChangeListener().fieldChanged(this, context);
+    }
 
-    addingCompleted();
-  }
-
-  public void fieldChanged(Field field, int context) {
-    getChangeListener().fieldChanged(this, context);
-  }
-
-  public void setFixedWidth(int width) {
-    insert(new HorizontalSpacerField(width), 1);
-  }
+    public void setFixedWidth(int width) {
+        insert(new HorizontalSpacerField(width), 1);
+    }
 
 }

@@ -12,108 +12,108 @@ import org.yanex.vika.gui.widget.base.CustomLabelField;
 
 public class ListBoxDialog extends Screen implements GuiItem {
 
-  private static final Theme THEME_BUTTON, THEME_LABEL;
-  private int selection = -1;
+    private static final Theme THEME_BUTTON, THEME_LABEL;
+    private int selection = -1;
 
-  static {
-    THEME_LABEL = new Theme();
-    ListBoxDialog.THEME_LABEL.setPrimaryColor(0xffffff);
+    static {
+        THEME_LABEL = new Theme();
+        ListBoxDialog.THEME_LABEL.setPrimaryColor(0xffffff);
 
-    THEME_BUTTON = new Theme();
-    ListBoxDialog.THEME_BUTTON.setPrimaryColor(0xffffff);
-    ListBoxDialog.THEME_BUTTON.setSecondaryFontColor(0xffffff);
-    ListBoxDialog.THEME_BUTTON.setPaddingEdges(DP1, DP1, DP1, DP1);
+        THEME_BUTTON = new Theme();
+        ListBoxDialog.THEME_BUTTON.setPrimaryColor(0xffffff);
+        ListBoxDialog.THEME_BUTTON.setSecondaryFontColor(0xffffff);
+        ListBoxDialog.THEME_BUTTON.setPaddingEdges(DP1, DP1, DP1, DP1);
 
-    Background focusBackground = new NinePatchBackground("Convs/AttachesMenu/FocusBg.png");
-    ListBoxDialog.THEME_BUTTON.setBackground(null, focusBackground, focusBackground, null);
-  }
-
-  public ListBoxDialog(String label, String[] items) {
-    super(new VerticalFieldManager());
-    setFont(Fonts.narrow(7));
-
-    VerticalFieldManager vfm = new VerticalFieldManager(Manager.VERTICAL_SCROLL
-        | Manager.VERTICAL_SCROLLBAR);
-    vfm.setPadding(px(2), px(2), px(2), px(2));
-
-    if (label != null && label.length() > 0) {
-      CustomLabelField l = new CustomLabelField(label, DrawStyle.HCENTER, ListBoxDialog.THEME_LABEL);
-      l.setPadding(0, 0, px(3), 0);
-      vfm.add(l);
+        Background focusBackground = new NinePatchBackground("Convs/AttachesMenu/FocusBg.png");
+        ListBoxDialog.THEME_BUTTON.setBackground(null, focusBackground, focusBackground, null);
     }
 
-    ButtonField[] buttons = new ButtonField[items.length];
+    public ListBoxDialog(String label, String[] items) {
+        super(new VerticalFieldManager());
+        setFont(Fonts.narrow(7));
 
-    int maxw = 0;
+        VerticalFieldManager vfm = new VerticalFieldManager(Manager.VERTICAL_SCROLL
+                | Manager.VERTICAL_SCROLLBAR);
+        vfm.setPadding(px(2), px(2), px(2), px(2));
 
-    for (int i = 0; i < items.length; ++i) {
-      final int index = i;
-
-      ButtonField b = buttons[i] = new ButtonField(items[i], 0, ListBoxDialog.THEME_BUTTON);
-      b.setChangeListener(new FieldChangeListener() {
-
-        public void fieldChanged(Field field, int context) {
-          selection = index;
-          dismiss();
+        if (label != null && label.length() > 0) {
+            CustomLabelField l = new CustomLabelField(label, DrawStyle.HCENTER, ListBoxDialog.THEME_LABEL);
+            l.setPadding(0, 0, px(3), 0);
+            vfm.add(l);
         }
-      });
-      maxw = Math.max(maxw, b.getPreferredWidth());
-      vfm.add(b);
+
+        ButtonField[] buttons = new ButtonField[items.length];
+
+        int maxw = 0;
+
+        for (int i = 0; i < items.length; ++i) {
+            final int index = i;
+
+            ButtonField b = buttons[i] = new ButtonField(items[i], 0, ListBoxDialog.THEME_BUTTON);
+            b.setChangeListener(new FieldChangeListener() {
+
+                public void fieldChanged(Field field, int context) {
+                    selection = index;
+                    dismiss();
+                }
+            });
+            maxw = Math.max(maxw, b.getPreferredWidth());
+            vfm.add(b);
+        }
+
+        for (int i = 0; i < items.length; ++i) {
+            buttons[i].setFixedWidth(maxw);
+        }
+
+        add(vfm);
+
+        setBackground(new NinePatchBackground("Convs/AttachesMenu/Bg.png"));
     }
 
-    for (int i = 0; i < items.length; ++i) {
-      buttons[i].setFixedWidth(maxw);
+    public ListBoxDialog(String[] items) {
+        this(null, items);
     }
 
-    add(vfm);
-
-    setBackground(new NinePatchBackground("Convs/AttachesMenu/Bg.png"));
-  }
-
-  public ListBoxDialog(String[] items) {
-    this(null, items);
-  }
-
-  public void dismiss() {
-    if (isVisible()) {
-      this.close();
-    }
-  }
-
-  public int getSelection() {
-    return selection;
-  }
-
-  protected boolean keyChar(char c, int status, int time) {
-    if (c == 27) {
-      dismiss();
-      return true;
+    public void dismiss() {
+        if (isVisible()) {
+            this.close();
+        }
     }
 
-    return super.keyChar(c, status, time);
-  }
-
-  protected int px(int pt) {
-    return Ui.convertSize(pt, Ui.UNITS_pt, Ui.UNITS_px);
-  }
-
-  public ListBoxDialog show() {
-    if (!isVisible()) {
-      UiApplication.getUiApplication().pushModalScreen(this);
+    public int getSelection() {
+        return selection;
     }
-    return this;
-  }
 
-  protected void sublayout(int width, int height) {
-    layoutDelegate(width - 80, height - 80);
+    protected boolean keyChar(char c, int status, int time) {
+        if (c == 27) {
+            dismiss();
+            return true;
+        }
 
-    int desiredWidth = getDelegate().getWidth() + 20;
+        return super.keyChar(c, status, time);
+    }
 
-    setExtent(Math.min(width - 60, desiredWidth),
-        Math.min(height - 60, getDelegate().getHeight() + 20));
+    protected int px(int pt) {
+        return Ui.convertSize(pt, Ui.UNITS_pt, Ui.UNITS_px);
+    }
 
-    setPositionDelegate((getContentWidth() - getDelegate().getWidth()) / 2, 10);
+    public ListBoxDialog show() {
+        if (!isVisible()) {
+            UiApplication.getUiApplication().pushModalScreen(this);
+        }
+        return this;
+    }
 
-    setPosition((width - getWidth()) / 2, (height - getHeight()) / 2);
-  }
+    protected void sublayout(int width, int height) {
+        layoutDelegate(width - 80, height - 80);
+
+        int desiredWidth = getDelegate().getWidth() + 20;
+
+        setExtent(Math.min(width - 60, desiredWidth),
+                Math.min(height - 60, getDelegate().getHeight() + 20));
+
+        setPositionDelegate((getContentWidth() - getDelegate().getWidth()) / 2, 10);
+
+        setPosition((width - getWidth()) / 2, (height - getHeight()) / 2);
+    }
 }

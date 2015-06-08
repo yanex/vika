@@ -9,13 +9,13 @@ import java.util.Vector;
 
 final class FileSystemObjectConverter {
 
-  static Vector fileSystemObjects(RichVector items) {
-    return items.transform(new Function1() {
+    static Vector fileSystemObjects(RichVector items) {
+        return items.transform(new Function1() {
 
-      public Object apply(Object it) {
-        return new FileItem((FileSystemObject) it);
-      }
-    });
-  }
+            public Object apply(Object it) {
+                return new FileItem((FileSystemObject) it);
+            }
+        });
+    }
 
 }

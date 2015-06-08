@@ -7,10 +7,10 @@ import java.util.Vector;
 
 public class BalloonFieldManager extends VerticalFieldManager {
 
-  public void addAll(Vector fields) {
-    Field[] a = new Field[fields.size()];
-    fields.copyInto(a);
-    addAll(a);
-  }
+    public void addAll(Vector fields) {
+        Field[] a = new Field[fields.size()];
+        fields.copyInto(a);
+        addAll(a);
+    }
 
 }
